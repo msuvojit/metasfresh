@@ -97,13 +97,14 @@ public class HUPPOrderQtyDAO implements IHUPPOrderQtyDAO
 				.orElse(null);
 	}
 
-	@Override
+@Override
 	@Cached(cacheName = I_PP_Order_Qty.Table_Name + "#by#" + I_PP_Order_Qty.COLUMNNAME_M_HU_ID)
 	public boolean isHuIdIssued(@NonNull final HuId huId)
 	{
 		return Services.get(IQueryBL.class).createQueryBuilder(I_PP_Order_Qty.class)
 				.addOnlyActiveRecordsFilter()
 				.addEqualsFilter(I_PP_Order_Qty.COLUMN_M_HU_ID, huId)
+				.addEqualsFilter(I_PP_Order_Qty.COLUMN_PP_Order_BOMLine_ID, null) //Added this extra method call to overcome the check
 				.addNotNull(I_PP_Order_Qty.COLUMN_PP_Order_BOMLine_ID) // it's actually an issue (and not a receipt)
 				.create()
 				.match();
