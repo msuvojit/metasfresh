@@ -673,6 +673,7 @@ public class OrderBL implements IOrderBL
 		final BPartnerLocationQuery query = BPartnerLocationQuery
 				.builder()
 				.type(Type.BILL_TO)
+				.alsoTryRelation(true)
 				.bpartnerId(de.metas.bpartner.BPartnerId.ofRepoId(bpartner.getC_BPartner_ID()))
 				.build();
 		final I_C_BPartner_Location billtoLocation = bPartnerDAO.retrieveBPartnerLocation(query);
