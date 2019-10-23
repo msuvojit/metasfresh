@@ -111,6 +111,8 @@ public class JasperEngine extends AbstractReportEngine
 		}
 		catch (final Exception e)
 		{
+			// log the error
+			log.error(e.getMessage());
 			throw AdempiereException.wrapIfNeeded(e);
 		}
 

@@ -27,7 +27,6 @@ import java.sql.Connection;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.adempiere.exceptions.AdempiereException;
 import org.slf4j.Logger;
 
 import de.metas.logging.LogManager;
@@ -84,10 +83,6 @@ import net.sf.jasperreports.engine.JasperReport;
 			{
 				return JasperFillManager.fillReport(jasperReport, paramsFixed, connection);
 			}
-		}
-		catch (final Exception e)
-		{
-			throw AdempiereException.wrapIfNeeded(e);
 		}
 		finally
 		{
