@@ -96,10 +96,13 @@ public class RemoteServletInvoker implements IJasperServer
 
 		logger.info("Calling URL " + urlStr);
 
+		HttpURLConnection httpConn = null;
 		InputStream in = null;
+
 		try
 		{
-			in = new URL(urlStr).openStream();
+			httpConn = (HttpURLConnection)new URL(urlStr).openConnection();
+			in = httpConn.getInputStream();
 
 			final ByteArrayOutputStream out = new ByteArrayOutputStream();
 
@@ -121,10 +124,13 @@ public class RemoteServletInvoker implements IJasperServer
 		}
 		catch (final IOException e)
 		{
+			in = httpConn.getErrorStream();
 			writeLog(urlStr, e);
 			throw AdempiereException.wrapIfNeeded(e)
-					.appendParametersToMessage()
-					.setParameter("URL", urlStr);
+			.appendParametersToMessage()
+			.setParameter("URL", urlStr)
+			.setParameter("ErrorStream", in);
+
 		}
 		finally
 		{
@@ -136,7 +142,7 @@ public class RemoteServletInvoker implements IJasperServer
 	private void writeLog(final String urlStr, final IOException e)
 	{
 		Loggables.withLogger(logger, Level.ERROR)
-				.addLog("Caught {} trying to invoke URL {}; message: {}", e.getClass(), urlStr, e.getMessage());
+		.addLog("Caught {} trying to invoke URL {}; message: {}", e.getClass(), urlStr, e.getMessage());
 	}
 
 	@Override
