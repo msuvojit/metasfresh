@@ -12,6 +12,8 @@ import org.adempiere.util.reflect.ClassReference;
 import org.slf4j.Logger;
 import org.springframework.context.ApplicationContext;
 
+import com.google.common.collect.ImmutableList;
+
 import de.metas.logging.LogManager;
 import de.metas.util.Services;
 import lombok.NonNull;
@@ -131,6 +133,17 @@ public final class SpringContextHolder
 	 */
 	public <T> Collection<T> getBeansOfType(@NonNull final Class<T> requiredType)
 	{
+		if(Adempiere.isUnitTestMode())
+		{
+			@SuppressWarnings("unchecked")
+			final T beanImpl = (T)junitRegisteredBeans.get(ClassReference.of(requiredType));
+			if (beanImpl != null)
+			{
+				logger.info("JUnit testing. Returning manually registered bean as Collection: {}", beanImpl);
+				return ImmutableList.of(beanImpl);
+			}
+		}
+		
 		final ApplicationContext springApplicationContext = getApplicationContext();
 		try
 		{
