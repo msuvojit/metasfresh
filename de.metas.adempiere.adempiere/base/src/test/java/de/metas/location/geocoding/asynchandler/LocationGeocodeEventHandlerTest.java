@@ -22,46 +22,42 @@
 
 package de.metas.location.geocoding.asynchandler;
 
-import de.metas.event.IEventBusFactory;
-import de.metas.location.LocationId;
-import de.metas.location.geocoding.GeoCoordinatesRequest;
-import de.metas.location.geocoding.GeocodingService;
-import de.metas.location.geocoding.GeographicalCoordinates;
-import mockit.Expectations;
-import mockit.Injectable;
-import mockit.Tested;
+import static org.assertj.core.api.Assertions.assertThat;
+
+import java.math.BigDecimal;
+import java.util.Optional;
+
 import org.adempiere.model.InterfaceWrapperHelper;
 import org.adempiere.test.AdempiereTestHelper;
 import org.compiere.model.I_C_Country;
 import org.compiere.model.I_C_Location;
 import org.compiere.model.X_C_Location;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
-import java.math.BigDecimal;
-import java.util.Optional;
-
-import static org.assertj.core.api.Assertions.assertThat;
+import de.metas.event.IEventBusFactory;
+import de.metas.location.LocationId;
+import de.metas.location.geocoding.GeoCoordinatesRequest;
+import de.metas.location.geocoding.GeocodingService;
+import de.metas.location.geocoding.GeographicalCoordinates;
 
 /**
  * Must use jUnit 4 because our version of junit5 and jmockit are incompatible and an error is thrown.
  */
 public class LocationGeocodeEventHandlerTest
 {
-
-	@Injectable
 	private GeocodingService geocodingService;
-
-	@Injectable
-	private IEventBusFactory iEventBusFactory;
-
-	@Tested
 	private LocationGeocodeEventHandler eventHandler;
 
-	@Before
+	@BeforeEach
 	public void init()
 	{
 		AdempiereTestHelper.get().init();
+
+		eventHandler = new LocationGeocodeEventHandler(
+				Mockito.mock(IEventBusFactory.class),
+				geocodingService = Mockito.mock(GeocodingService.class));
 	}
 
 	@Test
@@ -89,21 +85,16 @@ public class LocationGeocodeEventHandlerTest
 		// create request
 		final LocationGeocodeEventRequest locationGeocodeEventRequest = LocationGeocodeEventRequest.of(LocationId.ofRepoId(location.getC_Location_ID()));
 
-		new Expectations()
-		{{
-			final GeoCoordinatesRequest expectedRequest = GeoCoordinatesRequest.builder()
-					.countryCode2("DE")
-					.address(address1)
-					.postal(postal)
-					.city(city)
-					.build();
-			geocodingService.findBestCoordinates(expectedRequest);
-			final GeographicalCoordinates desiredResponse = GeographicalCoordinates.builder()
-					.latitude(latitude)
-					.longitude(longitude)
-					.build();
-			result = Optional.of(desiredResponse);
-		}};
+		Mockito.when(geocodingService.findBestCoordinates(GeoCoordinatesRequest.builder()
+				.countryCode2("DE")
+				.address(address1)
+				.postal(postal)
+				.city(city)
+				.build()))
+				.thenReturn(Optional.of(GeographicalCoordinates.builder()
+						.latitude(latitude)
+						.longitude(longitude)
+						.build()));
 
 		eventHandler.handleEvent(locationGeocodeEventRequest);
 
@@ -138,17 +129,14 @@ public class LocationGeocodeEventHandlerTest
 		// create request
 		final LocationGeocodeEventRequest locationGeocodeEventRequest = LocationGeocodeEventRequest.of(LocationId.ofRepoId(location.getC_Location_ID()));
 
-		new Expectations()
-		{{
-			final GeoCoordinatesRequest expectedRequest = GeoCoordinatesRequest.builder()
-					.countryCode2("DE")
-					.address(address1 + " " + address2)
-					.postal(postal)
-					.city(city)
-					.build();
-			geocodingService.findBestCoordinates(expectedRequest);
-			result = Optional.empty();
-		}};
+		Mockito.when(
+				geocodingService.findBestCoordinates(GeoCoordinatesRequest.builder()
+						.countryCode2("DE")
+						.address(address1 + " " + address2)
+						.postal(postal)
+						.city(city)
+						.build()))
+				.thenReturn(Optional.empty());
 
 		eventHandler.handleEvent(locationGeocodeEventRequest);
 

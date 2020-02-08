@@ -8,13 +8,12 @@ import org.adempiere.test.AdempiereTestHelper;
 import org.compiere.model.I_C_Period;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.ArgumentMatchers;
+import org.mockito.Mockito;
 
 import de.metas.contracts.model.I_C_Flatrate_DataEntry;
 import de.metas.contracts.model.I_C_Flatrate_Term;
 import de.metas.procurement.base.PMMContractBuilder;
-import mockit.Mocked;
-import mockit.Tested;
-import mockit.Verifications;
 
 /*
  * #%L
@@ -40,11 +39,11 @@ import mockit.Verifications;
 
 public class ProcurementFlatrateHandlerTests
 {
-	@Tested
-	ProcurementFlatrateHandler procurementFlatrateHandler;
-
-	@Mocked
-	PMMContractBuilder pmmContractBuilder;
+	// @Tested
+	// ProcurementFlatrateHandler procurementFlatrateHandler;
+	//
+	// @Mocked
+	// PMMContractBuilder pmmContractBuilder;
 
 	@Before
 	public void init()
@@ -100,17 +99,34 @@ public class ProcurementFlatrateHandlerTests
 		newTerm.setStartDate(Timestamp.valueOf("2017-01-01 00:00:00"));
 		InterfaceWrapperHelper.save(newTerm);
 
+		final PMMContractBuilder pmmContractBuilder = Mockito.mock(PMMContractBuilder.class);
+		Mockito.doReturn(pmmContractBuilder).when(pmmContractBuilder).setComplete(ArgumentMatchers.anyBoolean());
+		
+		final ProcurementFlatrateHandler procurementFlatrateHandler = new ProcurementFlatrateHandler()
+		{
+			@Override
+			PMMContractBuilder newPMMContractBuilder(de.metas.procurement.base.model.I_C_Flatrate_Term newTermtoUse)
+			{
+				return pmmContractBuilder;
+			}
+		};
+
 		procurementFlatrateHandler.afterSaveOfNextTermForPredecessor(newTerm, oldTerm);
 
-		// @formatter:off
-		new Verifications()
-		{{
-			// verify that the builder is called if the period start dates plus one year and with the flatrate amounts-per-uom
-			pmmContractBuilder.setFlatrateAmtPerUOM(Timestamp.valueOf("2017-01-01 00:00:00"), null);
-			pmmContractBuilder.setFlatrateAmtPerUOM(Timestamp.valueOf("2017-02-01 00:00:00"), new BigDecimal("0.00"));
-			pmmContractBuilder.setFlatrateAmtPerUOM(Timestamp.valueOf("2017-03-01 00:00:00"), new BigDecimal("1.23"));
-			pmmContractBuilder.build();
-		}};
-		// @formatter:on
+		Mockito.verify(pmmContractBuilder).setFlatrateAmtPerUOM(Timestamp.valueOf("2017-01-01 00:00:00"), null);
+		Mockito.verify(pmmContractBuilder).setFlatrateAmtPerUOM(Timestamp.valueOf("2017-02-01 00:00:00"), new BigDecimal("0.00"));
+		Mockito.verify(pmmContractBuilder).setFlatrateAmtPerUOM(Timestamp.valueOf("2017-03-01 00:00:00"), new BigDecimal("1.23"));
+		Mockito.verify(pmmContractBuilder).build();
+
+//		// @formatter:off
+//		new Verifications()
+//		{{
+//			// verify that the builder is called if the period start dates plus one year and with the flatrate amounts-per-uom
+//			pmmContractBuilder.setFlatrateAmtPerUOM(Timestamp.valueOf("2017-01-01 00:00:00"), null);
+//			pmmContractBuilder.setFlatrateAmtPerUOM(Timestamp.valueOf("2017-02-01 00:00:00"), new BigDecimal("0.00"));
+//			pmmContractBuilder.setFlatrateAmtPerUOM(Timestamp.valueOf("2017-03-01 00:00:00"), new BigDecimal("1.23"));
+//			pmmContractBuilder.build();
+//		}};
+//		// @formatter:on
 	}
 }

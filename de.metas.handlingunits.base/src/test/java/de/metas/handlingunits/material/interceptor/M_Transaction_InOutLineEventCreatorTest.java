@@ -25,8 +25,9 @@ import org.compiere.model.I_M_Product;
 import org.compiere.model.I_M_Transaction;
 import org.compiere.model.I_M_Warehouse;
 import org.compiere.model.X_M_Transaction;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
 import com.google.common.collect.ImmutableList;
 
@@ -41,7 +42,6 @@ import de.metas.material.event.commons.ProductDescriptor;
 import de.metas.material.event.transactions.AbstractTransactionEvent;
 import de.metas.util.time.SystemTime;
 import lombok.NonNull;
-import mockit.Expectations;
 
 /*
  * #%L
@@ -85,9 +85,10 @@ public class M_Transaction_InOutLineEventCreatorTest
 	private InOutAndLineId inoutLineId;
 
 	private TransactionDescriptorFactory transactionDescriptorFactory;
+	private M_Transaction_HuDescriptor huDescriptorCreator;
 	private M_Transaction_TransactionEventCreator mtransactionEventCreator;
 
-	@Before
+	@BeforeEach
 	public void init()
 	{
 		AdempiereTestHelper.get().init();
@@ -112,7 +113,8 @@ public class M_Transaction_InOutLineEventCreatorTest
 		inoutLineId = InOutAndLineId.ofRepoId(inoutLine.getM_InOut_ID(), inoutLine.getM_InOutLine_ID());
 
 		transactionDescriptorFactory = new TransactionDescriptorFactory();
-		mtransactionEventCreator = new M_Transaction_TransactionEventCreator();
+		mtransactionEventCreator = new M_Transaction_TransactionEventCreator(
+				huDescriptorCreator = Mockito.spy(new M_Transaction_HuDescriptor()));
 	}
 
 	@Test
@@ -208,14 +210,7 @@ public class M_Transaction_InOutLineEventCreatorTest
 				.quantityDelta(huQty)
 				.build();
 
-		// @formatter:off
-		final M_Transaction_HuDescriptor huDescriptorCreator = new M_Transaction_HuDescriptor();
-		new Expectations(M_Transaction_HuDescriptor.class)
-		{{
-			// partial mocking - we only want to mock this one method
-			huDescriptorCreator.createHuDescriptorsForInOutLine(inoutLineId, false);
-			result = ImmutableList.of(huDescriptor);
-		}}; // @formatter:on
+		Mockito.doReturn(ImmutableList.of(huDescriptor)).when(huDescriptorCreator).createHuDescriptorsForInOutLine(inoutLineId, false);
 	}
 
 	@Test
