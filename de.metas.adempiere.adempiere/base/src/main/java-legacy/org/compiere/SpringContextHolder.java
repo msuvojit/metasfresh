@@ -133,7 +133,7 @@ public final class SpringContextHolder
 	 */
 	public <T> Collection<T> getBeansOfType(@NonNull final Class<T> requiredType)
 	{
-		if(Adempiere.isUnitTestMode())
+		if (Adempiere.isUnitTestMode())
 		{
 			@SuppressWarnings("unchecked")
 			final T beanImpl = (T)junitRegisteredBeans.get(ClassReference.of(requiredType));
@@ -143,7 +143,7 @@ public final class SpringContextHolder
 				return ImmutableList.of(beanImpl);
 			}
 		}
-		
+
 		final ApplicationContext springApplicationContext = getApplicationContext();
 		try
 		{
@@ -166,14 +166,8 @@ public final class SpringContextHolder
 		final String message;
 		if (Adempiere.isUnitTestMode())
 		{
-			message = "This unit test requires a spring ApplicationContext; A known way to do that is to annotate the test class like this:\n"
-					+ "\n"
-					+ "@RunWith(SpringRunner.class)\n"
-					+ "@SpringBootTest(classes = { StartupListener.class, ShutdownListener.class, <further classes> })\n"
-					+ "public class YourTest ...\n"
-					+ "\n"
-					+ "Where the further configuration classes contain @ComponentScan annotations to discover spring components required by the actual tests"
-					+ "Also see https://docs.spring.io/spring-boot/docs/current/reference/html/boot-features-testing.html";
+			message = "This unit test requires a bean from spring ApplicationContext."
+					+ "\n Consider manually registering it by calling `SpringContextHolder.registerJUnitBean(new MyBean());`.";
 		}
 		else
 		{
@@ -199,6 +193,15 @@ public final class SpringContextHolder
 		final Class<T> beanType = (Class<T>)beanImpl.getClass();
 
 		registerJUnitBean(beanType, beanImpl);
+	}
+
+	/**
+	 * @deprecated Please use {@link #registerJUnitBean(Object)}
+	 */
+	@Deprecated
+	public static <T> void registerJUnitBean(@NonNull final Class<T> beanType)
+	{
+		throw new AdempiereException("Please provide the bean implementation");
 	}
 
 	public static <BT, T extends BT> void registerJUnitBean(@NonNull final Class<BT> beanType, @NonNull final T beanImpl)

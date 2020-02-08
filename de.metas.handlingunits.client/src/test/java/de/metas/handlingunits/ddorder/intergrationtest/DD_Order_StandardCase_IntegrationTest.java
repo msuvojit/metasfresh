@@ -26,7 +26,6 @@ import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.List;
 import java.util.Set;
-import java.util.function.Predicate;
 
 import org.adempiere.model.InterfaceWrapperHelper;
 import org.compiere.model.I_M_Warehouse;
@@ -36,12 +35,7 @@ import org.eevolution.model.I_PP_MRP;
 import org.hamcrest.Matchers;
 import org.junit.Assert;
 import org.junit.Ignore;
-import org.junit.runner.RunWith;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.junit4.SpringRunner;
 
-import de.metas.handlingunits.HandlingUnitsConfiguration;
 import de.metas.handlingunits.client.terminal.ddorder.model.DDOrderTableRow;
 import de.metas.handlingunits.client.terminal.editor.model.IHUKey;
 import de.metas.handlingunits.client.terminal.editor.model.impl.HUEditorModel;
@@ -50,9 +44,6 @@ import de.metas.handlingunits.expectations.PackingMaterialsExpectation;
 import de.metas.handlingunits.model.I_M_MovementLine;
 import de.metas.util.collections.CollectionUtils;
 
-@RunWith(SpringRunner.class)
-@SpringBootTest(classes = HandlingUnitsConfiguration.class)
-@ActiveProfiles("test")
 @Ignore
 public class DD_Order_StandardCase_IntegrationTest extends AbstractHUDDOrderProcessIntegrationTest
 {
@@ -100,15 +91,10 @@ public class DD_Order_StandardCase_IntegrationTest extends AbstractHUDDOrderProc
 		//
 		// Search and pick the Tomatoes line.
 		// There shall be one and only one
-		final IPOSTableRow row_Tomatoes = CollectionUtils.singleElement(rows, new Predicate<IPOSTableRow>()
-		{
-			@Override
-			public boolean test(final IPOSTableRow row)
-			{
-				final DDOrderTableRow ddOrderLineRow = (DDOrderTableRow)row;
-				final Set<Integer> productIds = ddOrderLineRow.getM_Product_IDs();
-				return productIds.size() == 1 && productIds.contains(mrpMasterData.pTomato.getM_Product_ID());
-			}
+		final IPOSTableRow row_Tomatoes = CollectionUtils.singleElement(rows, row -> {
+			final DDOrderTableRow ddOrderLineRow = (DDOrderTableRow)row;
+			final Set<Integer> productIds = ddOrderLineRow.getM_Product_IDs();
+			return productIds.size() == 1 && productIds.contains(mrpMasterData.pTomato.getM_Product_ID());
 		});
 
 		return row_Tomatoes;

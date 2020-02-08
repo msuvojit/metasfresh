@@ -1,5 +1,8 @@
 package de.metas.handlingunits.impl;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,23 +10,18 @@ import org.adempiere.ad.trx.api.ITrx;
 import org.adempiere.model.InterfaceWrapperHelper;
 import org.adempiere.test.AdempiereTestHelper;
 import org.adempiere.test.AdempiereTestWatcher;
+import org.compiere.SpringContextHolder;
 import org.compiere.util.Env;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
-import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 
-import de.metas.ShutdownListener;
-import de.metas.StartupListener;
 import de.metas.handlingunits.IHULockBL;
 import de.metas.handlingunits.IHUQueryBuilder;
 import de.metas.handlingunits.IHandlingUnitsDAO;
+import de.metas.handlingunits.impl.HULockBL_IntegrationTest.AdempiereTestWatcherExt;
 import de.metas.handlingunits.model.I_M_HU;
 import de.metas.handlingunits.reservation.HUReservationRepository;
 import de.metas.lock.api.LockOwner;
@@ -64,14 +62,12 @@ import de.metas.util.Services;
  * @author metas-dev <dev@metasfresh.com>
  *
  */
-@RunWith(SpringRunner.class)
-@SpringBootTest(classes = { StartupListener.class, ShutdownListener.class, HUReservationRepository.class })
+@ExtendWith(AdempiereTestWatcherExt.class)
 public class HULockBL_IntegrationTest
 {
 	private IHULockBL huLockBL;
 
-	@Rule
-	public final AdempiereTestWatcher testWatcher = new AdempiereTestWatcher()
+	static class AdempiereTestWatcherExt extends AdempiereTestWatcher
 	{
 		@Override
 		protected void onTestFailed(final String testName, final Throwable exception)
@@ -79,14 +75,15 @@ public class HULockBL_IntegrationTest
 			super.onTestFailed(testName, exception);
 
 			PlainLockManager.get().dump();
-		};
-	};
+		}
+	}
 
-	@Before
+	@BeforeEach
 	public void init()
 	{
 		AdempiereTestHelper.get().init();
 
+		SpringContextHolder.registerJUnitBean(new HUReservationRepository());
 		huLockBL = Services.get(IHULockBL.class);
 	}
 
@@ -120,7 +117,7 @@ public class HULockBL_IntegrationTest
 		//
 		// Create the HU to test with
 		final I_M_HU hu = createHU();
-		Assert.assertEquals("Locked", false, huLockBL.isLocked(hu));
+		assertThat(huLockBL.isLocked(hu)).isFalse();
 
 		//
 		// Lock and test
@@ -152,7 +149,7 @@ public class HULockBL_IntegrationTest
 		assertNotLocked(hu);
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test
 	public void test_unlock_any()
 	{
 		final LockOwner lockOwner = LockOwner.forOwnerName("test");
@@ -162,46 +159,49 @@ public class HULockBL_IntegrationTest
 		huLockBL.lock(hu, lockOwner);
 		assertLocked(hu);
 
-		huLockBL.unlock(hu, LockOwner.ANY);
+		assertThatThrownBy(() -> huLockBL.unlock(hu, LockOwner.ANY))
+				.isInstanceOf(IllegalArgumentException.class);
 	}
 
 	private void assertLocked(final I_M_HU hu)
 	{
-		Assert.assertEquals("Locked", true, huLockBL.isLocked(hu));
-		Assert.assertEquals("Locked", true, huLockBL.isLockedBy(hu, LockOwner.ANY)); // shall work the same as previous one
+		assertThat(huLockBL.isLocked(hu)).isTrue();
+		assertThat(huLockBL.isLockedBy(hu, LockOwner.ANY)).isTrue(); // shall work the same as previous one
 
 		final List<I_M_HU> result = Services.get(IHandlingUnitsDAO.class).createHUQueryBuilder()
 				.setContext(Env.getCtx(), ITrx.TRXNAME_ThreadInherited)
 				.onlyLocked()
 				.addOnlyHUIds(ImmutableSet.of(hu.getM_HU_ID()))
 				.list();
-		Assert.assertEquals("Given HU expected", ImmutableList.of(hu), result);
-
+		assertThat(result).containsExactly(hu);
 	}
 
 	private void assertLockedBy(final I_M_HU hu, final LockOwner lockOwner)
 	{
 		assertLocked(hu);
 
-		Assert.assertEquals("Locked by " + lockOwner, true, huLockBL.isLockedBy(hu, lockOwner));
+		assertThat(huLockBL.isLockedBy(hu, lockOwner))
+				.as("Locked by " + lockOwner)
+				.isTrue();
 	}
 
 	private void assertNotLocked(final I_M_HU hu)
 	{
-		Assert.assertEquals("Locked", false, huLockBL.isLocked(hu));
-		Assert.assertEquals("Locked", false, huLockBL.isLockedBy(hu, LockOwner.ANY)); // shall work the same as previous one
+		assertThat(huLockBL.isLocked(hu)).isFalse();
+		assertThat(huLockBL.isLockedBy(hu, LockOwner.ANY)).isFalse();
 
 		final List<I_M_HU> result = Services.get(IHandlingUnitsDAO.class).createHUQueryBuilder()
 				.setContext(Env.getCtx(), ITrx.TRXNAME_ThreadInherited)
 				.onlyLocked()
 				.addOnlyHUIds(ImmutableSet.of(hu.getM_HU_ID()))
 				.list();
-		Assert.assertEquals("No HUs expected", ImmutableList.of(), result);
+
+		assertThat(result).isEmpty();
 	}
 
 	private void assertNotLockedBy(final I_M_HU hu, final LockOwner lockOwner)
 	{
-		Assert.assertEquals("Locked", false, huLockBL.isLockedBy(hu, lockOwner));
+		assertThat(huLockBL.isLockedBy(hu, lockOwner)).isFalse();
 	}
 
 	private I_M_HU createHU()

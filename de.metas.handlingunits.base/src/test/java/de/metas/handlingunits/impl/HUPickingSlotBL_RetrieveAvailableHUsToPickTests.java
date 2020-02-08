@@ -34,6 +34,7 @@ import de.metas.handlingunits.picking.PickingCandidate;
 import de.metas.handlingunits.picking.PickingCandidateRepository;
 import de.metas.handlingunits.picking.PickingCandidateStatus;
 import de.metas.handlingunits.picking.impl.HUPickingSlotBL;
+import de.metas.handlingunits.reservation.HUReservationRepository;
 import de.metas.inoutcandidate.api.IShipmentScheduleUpdater;
 import de.metas.inoutcandidate.api.ShipmentScheduleId;
 import de.metas.inoutcandidate.api.impl.ShipmentScheduleUpdater;
@@ -87,6 +88,8 @@ public class HUPickingSlotBL_RetrieveAvailableHUsToPickTests
 
 		pickingCandidatesRepo = new PickingCandidateRepository();
 		SpringContextHolder.registerJUnitBean(pickingCandidatesRepo);
+
+		SpringContextHolder.registerJUnitBean(new HUReservationRepository());
 
 		uom = newInstance(I_C_UOM.class);
 		saveRecord(uom);

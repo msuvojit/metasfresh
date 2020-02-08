@@ -6,6 +6,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import org.adempiere.test.AdempiereTestHelper;
 import org.adempiere.warehouse.WarehouseId;
+import org.compiere.SpringContextHolder;
 import org.compiere.model.I_C_BPartner;
 import org.compiere.model.I_M_Product;
 import org.compiere.model.I_M_Warehouse;
@@ -14,6 +15,7 @@ import org.junit.jupiter.api.Test;
 
 import de.metas.bpartner.BPartnerId;
 import de.metas.handlingunits.IHUQueryBuilder;
+import de.metas.handlingunits.reservation.HUReservationRepository;
 import de.metas.product.ProductId;
 import de.metas.storage.IStorageQuery;
 
@@ -45,6 +47,7 @@ class HUStorageQueryTest
 	public void beforeEach()
 	{
 		AdempiereTestHelper.get().init();
+		SpringContextHolder.registerJUnitBean(new HUReservationRepository());
 	}
 
 	@Test

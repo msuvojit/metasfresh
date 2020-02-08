@@ -35,23 +35,16 @@ import java.util.Set;
 
 import org.adempiere.ad.wrapper.POJOWrapper;
 import org.adempiere.model.InterfaceWrapperHelper;
+import org.compiere.SpringContextHolder;
 import org.compiere.model.X_C_DocType;
 import org.hamcrest.Matchers;
 import org.junit.Assert;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import com.google.common.collect.ImmutableSet;
 
-import de.metas.ShutdownListener;
-import de.metas.StartupListener;
 import de.metas.acct.api.IProductAcctDAO;
 import de.metas.contracts.flatrate.interfaces.I_C_DocType;
-import de.metas.email.MailService;
-import de.metas.email.mailboxes.MailboxRepository;
-import de.metas.email.templates.MailTemplateRepository;
 import de.metas.handlingunits.HUTestHelper;
 import de.metas.handlingunits.HuId;
 import de.metas.handlingunits.attribute.storage.IAttributeStorage;
@@ -61,6 +54,7 @@ import de.metas.handlingunits.inout.impl.DistributeAndMoveReceiptCreator;
 import de.metas.handlingunits.model.I_M_HU;
 import de.metas.handlingunits.model.I_M_ReceiptSchedule;
 import de.metas.handlingunits.receiptschedule.IHUReceiptScheduleBL.CreateReceiptsParameters;
+import de.metas.handlingunits.receiptschedule.IHUToReceiveValidator;
 import de.metas.inout.model.I_M_InOut;
 import de.metas.inoutcandidate.api.InOutGenerateResult;
 import de.metas.product.IProductActivityProvider;
@@ -76,15 +70,6 @@ import de.metas.util.Services;
  *
  * @author al
  */
-@RunWith(SpringRunner.class)
-@SpringBootTest(classes = {
-		StartupListener.class, ShutdownListener.class,
-		//
-		DistributeAndMoveReceiptCreator.class,
-		LotNumberQuarantineRepository.class,
-		//
-		MailService.class, MailboxRepository.class, MailTemplateRepository.class
-})
 public class InOutProducerFromReceiptScheduleHUTest extends AbstractRSAllocationWithWeightAttributeTest
 {
 	@Override
@@ -93,6 +78,12 @@ public class InOutProducerFromReceiptScheduleHUTest extends AbstractRSAllocation
 		super.afterInitialize();
 
 		Services.registerService(IProductActivityProvider.class, Services.get(IProductAcctDAO.class));
+
+		SpringContextHolder.registerJUnitBean(IHUToReceiveValidator.class, (IHUToReceiveValidator)hu -> {
+			// nothing
+		});
+		
+		SpringContextHolder.registerJUnitBean(new DistributeAndMoveReceiptCreator(new LotNumberQuarantineRepository()));
 
 		final I_C_DocType docType = InterfaceWrapperHelper.newInstanceOutOfTrx(I_C_DocType.class);
 		docType.setDocBaseType(X_C_DocType.DOCBASETYPE_MaterialReceipt);

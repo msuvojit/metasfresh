@@ -1,5 +1,7 @@
 package de.metas.handlingunits.impl;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 /*
  * #%L
  * de.metas.handlingunits.base
@@ -13,53 +15,43 @@ package de.metas.handlingunits.impl;
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public
- * License along with this program.  If not, see
+ * License along with this program. If not, see
  * <http://www.gnu.org/licenses/gpl-2.0.html>.
  * #L%
  */
-
-
-import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertThat;
 
 import java.util.Properties;
 
 import org.adempiere.ad.trx.api.ITrx;
 import org.adempiere.model.InterfaceWrapperHelper;
 import org.adempiere.test.AdempiereTestHelper;
+import org.compiere.SpringContextHolder;
 import org.compiere.model.I_C_BPartner;
 import org.compiere.util.Env;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-import de.metas.ShutdownListener;
-import de.metas.StartupListener;
 import de.metas.handlingunits.model.I_M_HU;
 import de.metas.handlingunits.model.I_M_PickingSlot;
 import de.metas.handlingunits.model.I_M_PickingSlot_HU;
 import de.metas.handlingunits.picking.PickingCandidateRepository;
 import de.metas.handlingunits.picking.impl.HUPickingSlotBL;
 
-
-@RunWith(SpringRunner.class)
-@SpringBootTest(classes = { StartupListener.class, PickingCandidateRepository.class, ShutdownListener.class })
 public class HUPickingSlotTest
 {
 	/** Service under test */
 	private HUPickingSlotBL huPickingSlotBL;
 
-	@Before
+	@BeforeEach
 	public final void init()
 	{
 		AdempiereTestHelper.get().init();
 
+		SpringContextHolder.registerJUnitBean(new PickingCandidateRepository());
 		huPickingSlotBL = new HUPickingSlotBL();
 	}
 
@@ -108,11 +100,15 @@ public class HUPickingSlotTest
 		//
 		// Remove just the first HU hu1 (queue is not yet empty)
 		huPickingSlotBL.removeFromPickingSlotQueue(pickingSlot, hu1);
-		assertThat("Queue is not yet empty, so partner shall not yet be released", pickingSlot.getC_BPartner_ID(), is(bpartner.getC_BPartner_ID()));
+		assertThat(pickingSlot.getC_BPartner_ID())
+				.as("Queue is not yet empty, so partner shall not yet be released")
+				.isEqualTo(bpartner.getC_BPartner_ID());
 
 		//
 		// Remove the second HU hu2 (queue shall now be empty)
 		huPickingSlotBL.removeFromPickingSlotQueue(pickingSlot, hu2);
-		assertThat("Queue is empty, so partner shall be released", pickingSlot.getC_BPartner_ID(), is(-1));
+		assertThat(pickingSlot.getC_BPartner_ID())
+				.as("Queue is empty, so partner shall be released")
+				.isEqualTo(-1);
 	}
 }

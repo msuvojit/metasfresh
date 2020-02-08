@@ -11,8 +11,9 @@ import org.adempiere.ad.dao.ICompositeQueryFilter;
 import org.adempiere.ad.wrapper.POJOWrapper;
 import org.adempiere.test.AdempiereTestHelper;
 import org.adempiere.warehouse.WarehouseId;
-import org.junit.Before;
-import org.junit.Test;
+import org.compiere.SpringContextHolder;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import com.google.common.collect.ImmutableList;
 
@@ -24,6 +25,7 @@ import de.metas.handlingunits.model.I_M_Locator;
 import de.metas.handlingunits.model.I_M_Source_HU;
 import de.metas.handlingunits.model.I_M_Warehouse;
 import de.metas.handlingunits.model.X_M_HU;
+import de.metas.handlingunits.reservation.HUReservationRepository;
 import de.metas.handlingunits.sourcehu.SourceHUsService.MatchingSourceHusQuery;
 import de.metas.product.ProductId;
 
@@ -58,10 +60,12 @@ public class SourceHuDAOTest
 	private I_M_Locator otherLocator;
 	private List<I_M_HU> hus;
 
-	@Before
+	@BeforeEach
 	public void init()
 	{
 		AdempiereTestHelper.get().init();
+
+		SpringContextHolder.registerJUnitBean(new HUReservationRepository());
 
 		wh = newInstance(I_M_Warehouse.class);
 		save(wh);
