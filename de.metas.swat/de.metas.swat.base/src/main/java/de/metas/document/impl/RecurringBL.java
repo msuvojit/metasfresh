@@ -1,39 +1,34 @@
 package de.metas.document.impl;
 
-/*
- * #%L
- * de.metas.swat.base
- * %%
- * Copyright (C) 2015 metas GmbH
- * %%
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as
- * published by the Free Software Foundation, either version 2 of the
- * License, or (at your option) any later version.
- * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
- * 
- * You should have received a copy of the GNU General Public
- * License along with this program.  If not, see
- * <http://www.gnu.org/licenses/gpl-2.0.html>.
- * #L%
- */
-
-
-import org.adempiere.util.MiscUtils;
 import org.compiere.model.I_C_Recurring;
 import org.compiere.model.MRecurring;
+import org.compiere.model.PO;
 
 public class RecurringBL implements
 		de.metas.document.IRecurringBL {
 
 	public void recurringRun(final I_C_Recurring recurring) {
 		
-		final MRecurring recurringPO = MiscUtils.asPO(recurring, MRecurring.class);
+		final MRecurring recurringPO = asPO(recurring, MRecurring.class);
 		recurringPO.executeRun();
+	}
+
+	private static <T extends PO> T asPO(final Object po, Class<T> clazz)
+	{
+
+		if (po == null)
+		{
+			throw new IllegalArgumentException("Param 'po' may not be null");
+		}
+
+		if (!clazz.isAssignableFrom(po.getClass()))
+		{
+
+			throw new IllegalArgumentException("Param 'po' must be a "
+					+ clazz.getName() + ". Is: " + po.getClass().getName());
+
+		}
+		return clazz.cast(po);
 	}
 
 }

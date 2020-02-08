@@ -25,7 +25,7 @@ package org.adempiere.misc.service.impl;
 
 import org.adempiere.misc.service.IPOService;
 import org.adempiere.model.InterfaceWrapperHelper;
-import org.adempiere.util.MiscUtils;
+import org.compiere.model.PO;
 
 public final class POService implements IPOService
 {
@@ -33,6 +33,39 @@ public final class POService implements IPOService
 	public void save(final Object po, final String trxName)
 	{
 		InterfaceWrapperHelper.save(po, trxName);
+	}
+
+	/**
+	 * Checks if the given object is a {@link PO} instance and returns it cast to PO.
+	 * 
+	 * @param po
+	 *            the object that should be <code>instanceof</code> po
+	 * @return
+	 * @throws IllegalArgumentException
+	 *             if the given 'po' is <code>null</code> or not instance of PO.
+	 */
+	@SuppressWarnings("unchecked")
+	private static <T extends PO> T asPO(final Object po)
+	{
+
+		if (po == null)
+		{
+			throw new IllegalArgumentException("Param 'po' may not be null");
+		}
+
+		if (po instanceof PO)
+		{
+			return (T)po;
+		}
+
+		PO po2 = InterfaceWrapperHelper.getPO(po);
+		if (po2 != null)
+		{
+			return (T)po2;
+		}
+
+		throw new IllegalArgumentException("Param 'po' must be a PO. Is: "
+				+ po.getClass().getName());
 	}
 
 	/**
@@ -52,9 +85,9 @@ public final class POService implements IPOService
 	{
 		doChecks(po, columnName);
 
-		if (MiscUtils.asPO(po).get_ColumnIndex(columnName) != -1)
+		if (asPO(po).get_ColumnIndex(columnName) != -1)
 		{
-			return MiscUtils.asPO(po).get_Value(columnName);
+			return asPO(po).get_Value(columnName);
 		}
 		// TODO throw an Exception
 		return null;
@@ -91,9 +124,9 @@ public final class POService implements IPOService
 			throw new NullPointerException("columnName");
 		}
 
-		if (MiscUtils.asPO(po).get_ColumnIndex(columnName) != -1)
+		if (asPO(po).get_ColumnIndex(columnName) != -1)
 		{
-			MiscUtils.asPO(po).set_ValueOfColumn(columnName, value);
+			asPO(po).set_ValueOfColumn(columnName, value);
 		}
 		else
 		{
