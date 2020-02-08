@@ -35,18 +35,15 @@ import java.util.List;
 import org.adempiere.ad.table.api.IADTableDAO;
 import org.adempiere.ad.trx.api.ITrx;
 import org.adempiere.model.InterfaceWrapperHelper;
+import org.compiere.SpringContextHolder;
 import org.compiere.model.I_C_Invoice;
 import org.compiere.model.X_C_DocType;
 import org.compiere.util.Env;
 import org.compiere.util.TimeUtil;
 import org.junit.Assert;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 
-import de.metas.ShutdownListener;
-import de.metas.StartupListener;
+import de.metas.document.engine.DocumentHandlerProvider;
 import de.metas.dunning.DunningDocDocumentHandlerProvider;
 import de.metas.dunning.DunningTestBase;
 import de.metas.dunning.api.IDunnableDoc;
@@ -65,16 +62,6 @@ import de.metas.util.Services;
 import de.metas.util.collections.IteratorUtils;
 import de.metas.util.time.SystemTime;
 
-/**
- * @author tsa
- *
- */
-@RunWith(SpringRunner.class)
-@SpringBootTest(classes = {
-		StartupListener.class,
-		ShutdownListener.class,
-		DunningDocDocumentHandlerProvider.class
-})
 public class TestDunning extends DunningTestBase
 {
 	// Invoices
@@ -106,6 +93,12 @@ public class TestDunning extends DunningTestBase
 
 	// Candidate for level 2
 	private I_C_Dunning_Candidate candidate2_2;
+
+	@Override
+	protected void createMasterData()
+	{
+		SpringContextHolder.registerJUnitBean(DocumentHandlerProvider.class, new DunningDocDocumentHandlerProvider());
+	}
 
 	@Test
 	public void testCreateInvoices()
