@@ -1,6 +1,6 @@
 package de.metas.document.archive.spi.impl;
 
-import lombok.NonNull;
+import static org.assertj.core.api.Assertions.assertThat;
 
 /*
  * #%L
@@ -15,15 +15,14 @@ import lombok.NonNull;
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public
- * License along with this program.  If not, see
+ * License along with this program. If not, see
  * <http://www.gnu.org/licenses/gpl-2.0.html>.
  * #L%
  */
-
 
 import java.util.Properties;
 
@@ -32,43 +31,26 @@ import org.adempiere.ad.trx.api.ITrx;
 import org.adempiere.archive.api.IArchiveEventManager;
 import org.adempiere.model.InterfaceWrapperHelper;
 import org.adempiere.test.AdempiereTestHelper;
-import org.compiere.Adempiere;
 import org.compiere.model.I_C_Invoice;
 import org.compiere.model.I_Test;
 import org.compiere.util.Env;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-import de.metas.ShutdownListener;
-import de.metas.StartupListener;
 import de.metas.attachments.AttachmentEntryService;
-import de.metas.document.archive.mailrecipient.DocOutboundLogMailRecipientRegistry;
 import de.metas.document.archive.model.I_AD_Archive;
 import de.metas.document.archive.model.I_AD_User;
 import de.metas.document.archive.model.I_C_BPartner;
 import de.metas.document.archive.model.I_C_Doc_Outbound_Log_Line;
 import de.metas.document.engine.DocStatus;
 import de.metas.util.Services;
+import lombok.NonNull;
 
-@RunWith(SpringRunner.class)
-@SpringBootTest(classes = { StartupListener.class, ShutdownListener.class, DocOutboundLogMailRecipientRegistry.class })
 public class DocOutboundArchiveEventListenerTest
 {
-	@BeforeClass
-	public static void staticInit()
-	{
-		Adempiere.enableUnitTestMode();
-		AdempiereTestHelper.get().staticInit();
-	}
-
 	private DocOutboundArchiveEventListener archiveBL;
 
-	@Before
+	@BeforeEach
 	public void init()
 	{
 		AdempiereTestHelper.get().init();
@@ -101,7 +83,7 @@ public class DocOutboundArchiveEventListenerTest
 
 		final I_C_Doc_Outbound_Log_Line docExchangeLine = archiveBL.createLogLine(archive);
 
-		Assert.assertEquals("Invalid DocumentNo", documentNoExpected, docExchangeLine.getDocumentNo());
+		assertThat(docExchangeLine.getDocumentNo()).isEqualTo(documentNoExpected);
 	}
 
 	/**
@@ -119,7 +101,9 @@ public class DocOutboundArchiveEventListenerTest
 
 		// Expected document is record ID because record does not have any DocumentNo, Value or Name fields completed
 		final String documentNoExpected = String.valueOf(record.getTest_ID());
-		Assert.assertEquals("Log line's DocumentNo shall be record's ID", documentNoExpected, docExchangeLine.getDocumentNo());
+		assertThat(docExchangeLine.getDocumentNo())
+				.as("Log line's DocumentNo shall be record's ID")
+				.isEqualTo(documentNoExpected);
 	}
 
 	private I_AD_Archive createArchive(@NonNull final Object model)
