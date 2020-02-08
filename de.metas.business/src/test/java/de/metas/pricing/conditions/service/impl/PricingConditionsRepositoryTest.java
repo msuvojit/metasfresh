@@ -10,7 +10,6 @@ import java.math.BigDecimal;
 
 import org.adempiere.mm.attributes.AttributeValueId;
 import org.adempiere.test.AdempiereTestHelper;
-import org.compiere.SpringContextHolder;
 import org.compiere.model.I_M_DiscountSchemaBreak;
 import org.compiere.model.X_M_DiscountSchemaBreak;
 import org.junit.jupiter.api.BeforeEach;
@@ -51,12 +50,14 @@ import de.metas.product.ProductId;
 
 public class PricingConditionsRepositoryTest
 {
+	private PricingConditionsRepository pricingConditionsRepository;
+
 	@BeforeEach
 	public void init()
 	{
 		AdempiereTestHelper.get().init();
 
-		SpringContextHolder.registerJUnitBean(new PaymentTermService());
+		pricingConditionsRepository = new PricingConditionsRepository(new PaymentTermService());
 	}
 
 	@Test
@@ -109,7 +110,7 @@ public class PricingConditionsRepositoryTest
 		saveRecord(schemaBreakRecord);
 
 		// invoke the method under test
-		final PricingConditionsBreak result = PricingConditionsRepository.toPricingConditionsBreak(schemaBreakRecord);
+		final PricingConditionsBreak result = pricingConditionsRepository.toPricingConditionsBreak(schemaBreakRecord);
 
 		final PriceSpecification priceSpecification = result.getPriceSpecification();
 		assertThat(priceSpecification.getType()).isEqualTo(PriceSpecificationType.FIXED_PRICE);
@@ -125,7 +126,7 @@ public class PricingConditionsRepositoryTest
 		saveRecord(schemaBreakRecord);
 
 		// invoke the method under test
-		final PricingConditionsBreak result = PricingConditionsRepository.toPricingConditionsBreak(schemaBreakRecord);
+		final PricingConditionsBreak result = pricingConditionsRepository.toPricingConditionsBreak(schemaBreakRecord);
 
 		assertThat(result.getPriceSpecification().getType()).isEqualTo(PriceSpecificationType.NONE);
 	}

@@ -48,7 +48,6 @@ import org.adempiere.mm.attributes.AttributeId;
 import org.adempiere.mm.attributes.AttributeValueId;
 import org.adempiere.model.InterfaceWrapperHelper;
 import org.adempiere.service.ClientId;
-import org.compiere.SpringContextHolder;
 import org.compiere.model.IQuery;
 import org.compiere.model.I_M_DiscountSchema;
 import org.compiere.model.I_M_DiscountSchemaBreak;
@@ -98,11 +97,18 @@ public class PricingConditionsRepository implements IPricingConditionsRepository
 {
 	private static final Logger logger = LogManager.getLogger(PricingConditionsRepository.class);
 
+	private final PaymentTermService paymentTermService;
+
 	private final CCache<PricingConditionsId, PricingConditions> pricingConditionsById = CCache.<PricingConditionsId, PricingConditions> builder()
 			.tableName(I_M_DiscountSchema.Table_Name)
 			.initialCapacity(10)
 			.additionalTableNameToResetFor(I_M_DiscountSchemaBreak.Table_Name)
 			.build();
+
+	public PricingConditionsRepository(@NonNull final PaymentTermService paymentTermService)
+	{
+		this.paymentTermService = paymentTermService;
+	}
 
 	@Override
 	public PricingConditions getPricingConditionsById(@NonNull final PricingConditionsId pricingConditionsId)
@@ -149,7 +155,7 @@ public class PricingConditionsRepository implements IPricingConditionsRepository
 				.collect(GuavaCollectors.toImmutableMapByKey(PricingConditions::getId));
 	}
 
-	private static PricingConditions toPricingConditions(final I_M_DiscountSchema discountSchemaRecord, final List<I_M_DiscountSchemaBreak> schemaBreakRecords)
+	private PricingConditions toPricingConditions(final I_M_DiscountSchema discountSchemaRecord, final List<I_M_DiscountSchemaBreak> schemaBreakRecords)
 	{
 		final PricingConditionsDiscountType discountType = PricingConditionsDiscountType.forCode(discountSchemaRecord.getDiscountType());
 		final List<PricingConditionsBreak> breaks;
@@ -186,7 +192,7 @@ public class PricingConditionsRepository implements IPricingConditionsRepository
 				.build();
 	}
 
-	public static PricingConditionsBreak toPricingConditionsBreak(@NonNull final I_M_DiscountSchemaBreak schemaBreakRecord)
+	public PricingConditionsBreak toPricingConditionsBreak(@NonNull final I_M_DiscountSchemaBreak schemaBreakRecord)
 	{
 		final int discountSchemaBreakId = schemaBreakRecord.getM_DiscountSchemaBreak_ID();
 		final PricingConditionsBreakId id = discountSchemaBreakId > 0 ? PricingConditionsBreakId.of(schemaBreakRecord.getM_DiscountSchema_ID(), discountSchemaBreakId) : null;
@@ -195,7 +201,6 @@ public class PricingConditionsRepository implements IPricingConditionsRepository
 
 		final Percent paymentDiscount = Percent.ofNullable(schemaBreakRecord.getPaymentDiscount());
 
-		final PaymentTermService paymentTermService = SpringContextHolder.instance.getBean(PaymentTermService.class);
 		final PaymentTermId derivedPaymentTermId = paymentTermService.getOrCreateDerivedPaymentTerm(
 				paymentTermIdOrNull,
 				paymentDiscount);

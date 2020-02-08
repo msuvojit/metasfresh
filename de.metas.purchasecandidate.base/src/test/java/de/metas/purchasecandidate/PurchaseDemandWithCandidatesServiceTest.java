@@ -22,18 +22,13 @@ import org.compiere.model.I_M_DiscountSchemaBreak;
 import org.compiere.model.I_M_Product_Category;
 import org.compiere.model.X_M_DiscountSchema;
 import org.compiere.model.X_M_DiscountSchemaBreak;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableListMultimap;
 import com.google.common.collect.ImmutableMap;
 
-import de.metas.ShutdownListener;
-import de.metas.StartupListener;
 import de.metas.adempiere.model.I_M_Product;
 import de.metas.bpartner.service.impl.BPartnerBL;
 import de.metas.currency.CurrencyCode;
@@ -53,6 +48,8 @@ import de.metas.organization.OrgInfoUpdateRequest;
 import de.metas.payment.grossprofit.PaymentProfitPriceActualComponentProvider;
 import de.metas.payment.paymentterm.PaymentTermService;
 import de.metas.pricing.conditions.BreakValueType;
+import de.metas.pricing.conditions.service.IPricingConditionsRepository;
+import de.metas.pricing.conditions.service.impl.PricingConditionsRepository;
 import de.metas.product.ProductId;
 import de.metas.purchasecandidate.grossprofit.PurchaseProfitInfo;
 import de.metas.purchasecandidate.grossprofit.PurchaseProfitInfoService;
@@ -88,8 +85,6 @@ import de.metas.util.time.SystemTime;
  * #L%
  */
 
-@RunWith(SpringRunner.class)
-@SpringBootTest(classes = { StartupListener.class, ShutdownListener.class, PaymentTermService.class })
 public class PurchaseDemandWithCandidatesServiceTest
 {
 	private static final BigDecimal NINE = new BigDecimal("9");
@@ -116,10 +111,13 @@ public class PurchaseDemandWithCandidatesServiceTest
 
 	private I_C_PaymentTerm paymentTermRecord;
 
-	@Before
+	@BeforeEach
 	public void init()
 	{
 		AdempiereTestHelper.get().init();
+
+		final PricingConditionsRepository pricingConditionsRepository = new PricingConditionsRepository(new PaymentTermService());
+		Services.registerService(IPricingConditionsRepository.class, pricingConditionsRepository);
 
 		uomRecord = newInstance(I_C_UOM.class);
 		saveRecord(uomRecord);
@@ -235,7 +233,6 @@ public class PurchaseDemandWithCandidatesServiceTest
 				.salesOrderAndLineIdOrNull(OrderAndLineId.ofRepoIds(salesOrderLineRecord.getC_Order_ID(), salesOrderLineRecord.getC_OrderLine_ID()))
 				.existingPurchaseCandidateId(PurchaseCandidateId.ofRepoId(purchaseCandidateRecord.getC_PurchaseCandidate_ID()))
 				.build();
-
 	}
 
 	@Test

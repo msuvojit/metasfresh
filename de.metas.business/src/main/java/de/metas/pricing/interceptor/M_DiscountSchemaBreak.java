@@ -62,8 +62,14 @@ import lombok.NonNull;
 public class M_DiscountSchemaBreak
 {
 	private static final Logger logger = LogManager.getLogger(M_DiscountSchemaBreak.class);
+	private final PricingConditionsRepository pricingConditionsRepository;
 
 	private static final String MSG_UnderLimitPriceWithExplanation = "UnderLimitPriceWithExplanation";
+
+	public M_DiscountSchemaBreak(@NonNull final PricingConditionsRepository pricingConditionsRepository)
+	{
+		this.pricingConditionsRepository = pricingConditionsRepository;
+	}
 
 	@ModelChange(timings = { ModelValidator.TYPE_BEFORE_NEW, ModelValidator.TYPE_BEFORE_CHANGE })
 	public void beforeSave(final I_M_DiscountSchemaBreak schemaBreak)
@@ -105,7 +111,7 @@ public class M_DiscountSchemaBreak
 			return;
 		}
 
-		final PricingConditionsBreak pricingConditionsBreak = PricingConditionsRepository.toPricingConditionsBreak(schemaBreak);
+		final PricingConditionsBreak pricingConditionsBreak = pricingConditionsRepository.toPricingConditionsBreak(schemaBreak);
 		final PriceSpecification priceOverride = pricingConditionsBreak.getPriceSpecification();
 		final PriceSpecificationType priceOverrideType = priceOverride.getType();
 		final Set<CountryId> countryIds;

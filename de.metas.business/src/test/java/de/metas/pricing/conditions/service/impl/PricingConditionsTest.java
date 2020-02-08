@@ -83,7 +83,7 @@ public class PricingConditionsTest
 		AdempiereTestHelper.get().init();
 		POJOWrapper.setDefaultStrictValues(false);
 
-		repo = new PricingConditionsRepository();
+		repo = new PricingConditionsRepository(new PaymentTermService());
 		service = new PricingConditionsService();
 		Services.registerService(IPricingConditionsRepository.class, repo);
 
