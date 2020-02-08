@@ -26,7 +26,6 @@ package de.metas.storage.spi.hu.impl;
 import java.math.BigDecimal;
 
 import org.adempiere.mm.attributes.api.IAttributeSet;
-import org.adempiere.util.lang.ObjectUtils;
 import org.compiere.model.I_C_BPartner;
 import org.compiere.model.I_C_UOM;
 import org.compiere.model.I_M_Attribute;
@@ -43,11 +42,12 @@ import de.metas.storage.IStorageRecord;
 import de.metas.storage.spi.hu.IHUStorageBL;
 import de.metas.uom.IUOMConversionBL;
 import de.metas.uom.UOMConversionContext;
-import de.metas.util.Check;
 import de.metas.util.Services;
 import lombok.NonNull;
-
-public final class HUStorageRecord implements IStorageRecord
+import lombok.ToString;
+@ToString
+// not final for testing
+public class HUStorageRecord implements IStorageRecord
 {
 	public static HUStorageRecord cast(final IStorageRecord storageRecord)
 	{
@@ -64,13 +64,10 @@ public final class HUStorageRecord implements IStorageRecord
 	private final Quantity qtyOnHand;
 	private String _summary;
 
-	/* package */HUStorageRecord(
+	HUStorageRecord(
 			@NonNull final HUStorageRecord_HUPart huPart,
 			@NonNull final I_M_HU_Storage huStorage)
 	{
-		Check.assumeNotNull(huPart, "huPart not null");
-		Check.assumeNotNull(huStorage, "huStorage not null");
-
 		id = I_M_HU_Storage.Table_Name + "#" + huStorage.getM_HU_Storage_ID();
 		this.huPart = huPart;
 
@@ -83,12 +80,6 @@ public final class HUStorageRecord implements IStorageRecord
 		final I_C_UOM productUOM = productBL.getStockUOM(productId);
 		final UOMConversionContext uomConversionCtx = UOMConversionContext.of(productId);
 		qtyOnHand = uomConversionBL.convertQuantityTo(qtyOnHandSrc, uomConversionCtx, productUOM);
-	}
-
-	@Override
-	public String toString()
-	{
-		return ObjectUtils.toString(this);
 	}
 
 	@Override

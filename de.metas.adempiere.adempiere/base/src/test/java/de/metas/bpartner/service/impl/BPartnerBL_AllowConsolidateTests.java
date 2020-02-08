@@ -13,43 +13,40 @@ package de.metas.bpartner.service.impl;
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public
- * License along with this program.  If not, see
+ * License along with this program. If not, see
  * <http://www.gnu.org/licenses/gpl-2.0.html>.
  * #L%
  */
 
-
 import static org.junit.Assert.assertSame;
 
 import org.adempiere.service.ISysConfigBL;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
 import de.metas.interfaces.I_C_BPartner;
 import de.metas.lang.SOTrx;
 import de.metas.user.UserRepository;
 import de.metas.util.Services;
-import mockit.Expectations;
-import mockit.Mocked;
 
 public class BPartnerBL_AllowConsolidateTests
 {
-	@Mocked
 	I_C_BPartner partner;
-
-	@Mocked
 	ISysConfigBL sysConfigBL;
 
 	/**
 	 * Register our mocked service implementation
 	 */
-	@Before
+	@BeforeEach
 	public void init()
 	{
+		partner = Mockito.mock(I_C_BPartner.class);
+		sysConfigBL = Mockito.mock(ISysConfigBL.class);
 		Services.registerService(ISysConfigBL.class, sysConfigBL);
 	}
 
@@ -108,25 +105,13 @@ public class BPartnerBL_AllowConsolidateTests
 
 	private void partnerAllowsConsolidateInOut(final boolean partnerAllowsConsolidateInOut)
 	{
-		// @formatter:off
-		new Expectations()
-		{{
-				partner.isAllowConsolidateInOut();
-				minTimes = 0;
-				result = partnerAllowsConsolidateInOut;
-		}};
-		// @formatter:on
+		Mockito.when(partner.isAllowConsolidateInOut())
+				.thenReturn(partnerAllowsConsolidateInOut);
 	}
 
 	private void sysConfig_AllowConsolidateInOut_ReturnsTrue(final boolean sysConfigReturnsTrue)
 	{
-		// @formatter:off
-		new Expectations()
-		{{
-				sysConfigBL.getBooleanValue(BPartnerBL.SYSCONFIG_C_BPartner_SOTrx_AllowConsolidateInOut_Override, false);
-				minTimes = 0;
-				result = sysConfigReturnsTrue;
-		}};
-		// @formatter:on
+		Mockito.when(sysConfigBL.getBooleanValue(BPartnerBL.SYSCONFIG_C_BPartner_SOTrx_AllowConsolidateInOut_Override, false))
+				.thenReturn(sysConfigReturnsTrue);
 	}
 }

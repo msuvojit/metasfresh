@@ -13,8 +13,9 @@ import org.adempiere.ad.wrapper.POJOLookupMap;
 import org.adempiere.test.AdempiereTestHelper;
 import org.compiere.model.I_C_OrderLine;
 import org.compiere.model.I_C_UOM;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
 import de.metas.adempiere.model.I_M_Product;
 import de.metas.currency.CurrencyCode;
@@ -29,8 +30,6 @@ import de.metas.purchasecandidate.purchaseordercreation.remotepurchaseitem.Purch
 import de.metas.purchasecandidate.purchaseordercreation.remotepurchaseitem.PurchaseOrderItem;
 import de.metas.quantity.Quantity;
 import de.metas.util.time.SystemTime;
-import mockit.Expectations;
-import mockit.Mocked;
 
 /*
  * #%L
@@ -60,9 +59,7 @@ public class PurchaseCandidateRepositoryTest
 
 	private static final int VENDOR_ID = 20;
 
-	@Mocked
 	private ReferenceGenerator referenceGenerator;
-
 	private PurchaseCandidateRepository purchaseCandidateRepository;
 
 	private I_C_UOM uom;
@@ -71,11 +68,12 @@ public class PurchaseCandidateRepositoryTest
 
 	private I_C_PurchaseCandidate purchaseCandidateRecord;
 
-	@Before
+	@BeforeEach
 	public void init()
 	{
 		AdempiereTestHelper.get().init();
 
+		referenceGenerator = Mockito.mock(ReferenceGenerator.class);
 		purchaseCandidateRepository = new PurchaseCandidateRepository(
 				new PurchaseItemRepository(),
 				referenceGenerator,
@@ -104,11 +102,7 @@ public class PurchaseCandidateRepositoryTest
 	@Test
 	public void save()
 	{
-		// @formatter:off
-		new Expectations()
-		{{
-			referenceGenerator.getNextDemandReference(); result = "nextDemandReference";
-		}}; // @formatter:on
+		Mockito.when(referenceGenerator.getNextDemandReference()).thenReturn("nextDemandReference");
 
 		final PurchaseCandidate purchaseCandidate = PurchaseCandidateTestTool.createPurchaseCandidate(0, Quantity.of(TEN, uom));
 

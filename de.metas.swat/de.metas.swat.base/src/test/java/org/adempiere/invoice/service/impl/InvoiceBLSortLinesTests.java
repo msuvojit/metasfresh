@@ -1,5 +1,7 @@
 package org.adempiere.invoice.service.impl;
 
+import static org.junit.jupiter.api.Assertions.assertSame;
+
 /*
  * #%L
  * de.metas.swat.base
@@ -22,8 +24,6 @@ package org.adempiere.invoice.service.impl;
  * #L%
  */
 
-import static org.junit.Assert.assertSame;
-
 import java.util.Arrays;
 import java.util.List;
 
@@ -31,59 +31,45 @@ import org.adempiere.service.ClientId;
 import org.adempiere.service.ISysConfigBL;
 import org.adempiere.test.AdempiereTestHelper;
 import org.compiere.model.I_M_InOutLine;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
 import de.metas.adempiere.model.I_C_InvoiceLine;
 import de.metas.organization.OrgId;
 import de.metas.util.Services;
-import mockit.Expectations;
-import mockit.Mocked;
 
 public class InvoiceBLSortLinesTests
 {
-	@Mocked
 	I_C_InvoiceLine il1;
-
-	@Mocked
 	I_C_InvoiceLine il2;
-
-	@Mocked
 	I_C_InvoiceLine il3;
-
-	@Mocked
 	I_C_InvoiceLine il4;
-
-	@Mocked
 	I_C_InvoiceLine il5;
 
-	@Mocked
 	I_M_InOutLine iol1;
-
-	@Mocked
 	I_M_InOutLine iol2;
-
-	@Mocked
 	I_M_InOutLine iol3;
-
-	@Mocked
 	I_M_InOutLine iol4;
-
-	@Mocked
 	I_M_InOutLine iol5;
 
-	@BeforeClass
-	public static final void staticInit()
-	{
-		AdempiereTestHelper.get().staticInit();
-	}
-
-	@Before
+	@BeforeEach
 	public final void initStuff()
 	{
 		AdempiereTestHelper.get().init();
 		Services.get(ISysConfigBL.class).setValue(AbstractInvoiceBL.SYSCONFIG_SortILsByShipmentLineOrders, false, ClientId.SYSTEM, OrgId.ANY);
+
+		il1 = Mockito.mock(I_C_InvoiceLine.class);
+		il2 = Mockito.mock(I_C_InvoiceLine.class);
+		il3 = Mockito.mock(I_C_InvoiceLine.class);
+		il4 = Mockito.mock(I_C_InvoiceLine.class);
+		il5 = Mockito.mock(I_C_InvoiceLine.class);
+
+		iol1 = Mockito.mock(I_M_InOutLine.class);
+		iol2 = Mockito.mock(I_M_InOutLine.class);
+		iol3 = Mockito.mock(I_M_InOutLine.class);
+		iol4 = Mockito.mock(I_M_InOutLine.class);
+		iol5 = Mockito.mock(I_M_InOutLine.class);
 	}
 
 	/**
@@ -244,38 +230,21 @@ public class InvoiceBLSortLinesTests
 	{
 		if (inoutId <= 0)
 		{
-			// @formatter:off
-			new Expectations()
-			{{
-				il.getC_InvoiceLine_ID(); minTimes = 0; result = invoiceLineId;
-
-				il.getM_InOutLine(); minTimes = 0; result  = null;
-				il.getM_InOutLine_ID(); minTimes = 0; result = 0;
-
-				il.isFreightCostLine(); minTimes = 0; result = freightCost;
-
-				il.getLine(); minTimes = 0; result = lineNo;
-			}};
-			// @formatter:on
+			Mockito.when(il.getC_InvoiceLine_ID()).thenReturn(invoiceLineId);
+			Mockito.when(il.getM_InOutLine()).thenReturn(null);
+			Mockito.when(il.getM_InOutLine_ID()).thenReturn(0);
+			Mockito.when(il.isFreightCostLine()).thenReturn(freightCost);
+			Mockito.when(il.getLine()).thenReturn(lineNo);
 		}
 		else
 		{
-			// @formatter:off
-			new Expectations()
-			{{
-				il.getC_InvoiceLine_ID();
-				minTimes = 0;
-				result = invoiceLineId;
-
-				il.getM_InOutLine_ID(); minTimes = 0; result = 1;
-				il.getM_InOutLine(); minTimes = 0; result = iol;
-				iol.getM_InOut_ID(); minTimes = 0; result = inoutId;
-
-				il.isFreightCostLine();	minTimes = 0; result = freightCost;
-
-				il.getLine(); minTimes = 0; result = lineNo;
-			}};
-			// @formatter:on
+			Mockito.when(il.getC_InvoiceLine_ID()).thenReturn(invoiceLineId);
+			Mockito.when(il.getM_InOutLine_ID()).thenReturn(1);
+			Mockito.when(il.getM_InOutLine()).thenReturn(iol);
+			Mockito.when(il.isFreightCostLine()).thenReturn(freightCost);
+			Mockito.when(il.getLine()).thenReturn(lineNo);
+			
+			Mockito.when(iol.getM_InOut_ID()).thenReturn(inoutId);
 		}
 
 	}

@@ -57,9 +57,6 @@ public class PermissionService
 	{
 		this.userRolePermissionsKey = userRolePermissionsKey;
 		this.defaultOrgId = defaultOrgId;
-		// final Properties ctxToUse = coalesceSuppliers(() -> ctx, () -> Env.getCtx());
-		// this.userRolePermissionsKey = UserRolePermissionsKey.fromContext(ctxToUse);
-		// this.defaultOrgId = OrgId.optionalOfRepoId(Env.getAD_Org_ID(ctxToUse)).orElse(OrgId.ANY);
 	}
 
 	public void assertCanCreateOrUpdate(final Object record)

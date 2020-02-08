@@ -36,22 +36,16 @@ import org.adempiere.ad.wrapper.POJOLookupMap;
 import org.adempiere.ad.wrapper.POJOWrapper;
 import org.adempiere.model.InterfaceWrapperHelper;
 import org.adempiere.test.AdempiereTestWatcher;
+import org.compiere.SpringContextHolder;
 import org.compiere.model.I_AD_Note;
 import org.compiere.model.I_C_BPartner;
 import org.compiere.util.Env;
 import org.compiere.util.Trx;
 import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.TestWatcher;
-import org.junit.runner.RunWith;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
-import de.metas.ShutdownListener;
-import de.metas.StartupListener;
 import de.metas.bpartner.BPartnerLocationId;
 import de.metas.bpartner.service.IBPartnerBL;
 import de.metas.bpartner.service.IBPartnerStatisticsUpdater;
@@ -77,14 +71,9 @@ import de.metas.util.Check;
 import de.metas.util.Services;
 import de.metas.util.lang.Percent;
 
-@RunWith(SpringRunner.class)
-@SpringBootTest(classes = { StartupListener.class, ShutdownListener.class, MoneyService.class, CurrencyRepository.class, InvoiceCandidateRecordService.class })
-@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_CLASS) // without this, this test fails when run in eclipse together with all tests of this project
+@ExtendWith(AdempiereTestWatcher.class)
 public class InvoiceCandBLCreateInvoicesTest
 {
-	@Rule
-	public final TestWatcher testWatcher = new AdempiereTestWatcher();
-
 	// services
 	private InvoiceCandBLCreateInvoices invoiceCandBLCreateInvoices;
 	protected IOrderLineBL orderLineBL;
@@ -151,7 +140,7 @@ public class InvoiceCandBLCreateInvoicesTest
 		}
 	}
 
-	@Before
+	@BeforeEach
 	public void init()
 	{
 		icTestSupport = new AbstractICTestSupport();
@@ -167,6 +156,8 @@ public class InvoiceCandBLCreateInvoicesTest
 		Services.registerService(IBPartnerStatisticsUpdater.class, asyncBPartnerStatisticsUpdater);
 		Services.registerService(IBPartnerBL.class, new BPartnerBL(new UserRepository()));
 
+		SpringContextHolder.registerJUnitBean(new MoneyService(new CurrencyRepository()));
+		SpringContextHolder.registerJUnitBean(new InvoiceCandidateRecordService());
 	}
 
 	/**

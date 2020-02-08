@@ -1,5 +1,7 @@
 package de.metas.location.impl;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 /*
  * #%L
  * de.metas.swat.base
@@ -13,15 +15,14 @@ package de.metas.location.impl;
  * 
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU General Public License for more details.
  * 
  * You should have received a copy of the GNU General Public
- * License along with this program.  If not, see
+ * License along with this program. If not, see
  * <http://www.gnu.org/licenses/gpl-2.0.html>.
  * #L%
  */
-
 
 import java.sql.Timestamp;
 import java.text.DateFormat;
@@ -31,23 +32,26 @@ import java.text.SimpleDateFormat;
 import org.adempiere.test.AdempiereTestHelper;
 import org.compiere.model.I_C_CountryArea_Assign;
 import org.compiere.util.TimeUtil;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
 import de.metas.location.ICountryAreaBL;
 import de.metas.util.Services;
-import mockit.Expectations;
-import mockit.Mocked;
 
 public class CountryAreaBLTest
 {
-	@Mocked
 	I_C_CountryArea_Assign assignment1;
-
-	@Mocked
 	I_C_CountryArea_Assign assignment2;
 
 	CountryAreaBL countryAreaBL = new CountryAreaBL();
+
+	@BeforeEach
+	public void beforeEach()
+	{
+		assignment1 = Mockito.mock(I_C_CountryArea_Assign.class);
+		assignment2 = Mockito.mock(I_C_CountryArea_Assign.class);
+	}
 
 	@Test
 	public void testServiceLoadedOK()
@@ -61,31 +65,31 @@ public class CountryAreaBLTest
 	{
 		setAssignment(assignment1, "2010-01-01", null);
 		setAssignment(assignment2, "2010-05-01", null);
-		Assert.assertTrue(countryAreaBL.isTimeConflict(assignment1, assignment2));
+		assertThat(countryAreaBL.isTimeConflict(assignment1, assignment2)).isTrue();
 
 		setAssignment(assignment1, "2010-01-01", "2010-04-01");
 		setAssignment(assignment2, "2010-05-01", null);
-		Assert.assertFalse(countryAreaBL.isTimeConflict(assignment1, assignment2));
+		assertThat(countryAreaBL.isTimeConflict(assignment1, assignment2)).isFalse();
 
 		setAssignment(assignment1, "2010-01-01", "2010-06-01");
 		setAssignment(assignment2, "2010-05-01", null);
-		Assert.assertTrue(countryAreaBL.isTimeConflict(assignment1, assignment2));
+		assertThat(countryAreaBL.isTimeConflict(assignment1, assignment2)).isTrue();
 
 		setAssignment(assignment2, "2010-01-01", "2010-04-01");
 		setAssignment(assignment1, "2010-05-01", null);
-		Assert.assertFalse(countryAreaBL.isTimeConflict(assignment1, assignment2));
+		assertThat(countryAreaBL.isTimeConflict(assignment1, assignment2)).isFalse();
 
 		setAssignment(assignment2, "2010-01-01", "2010-06-01");
 		setAssignment(assignment1, "2010-05-01", null);
-		Assert.assertTrue(countryAreaBL.isTimeConflict(assignment1, assignment2));
+		assertThat(countryAreaBL.isTimeConflict(assignment1, assignment2)).isTrue();
 
 		setAssignment(assignment1, "2010-01-01", "2010-04-01");
 		setAssignment(assignment2, "2010-05-01", "2010-07-01");
-		Assert.assertFalse(countryAreaBL.isTimeConflict(assignment1, assignment2));
+		assertThat(countryAreaBL.isTimeConflict(assignment1, assignment2)).isFalse();
 
 		setAssignment(assignment1, "2010-01-01", "2010-06-01");
 		setAssignment(assignment2, "2010-05-01", "2010-08-01");
-		Assert.assertTrue(countryAreaBL.isTimeConflict(assignment1, assignment2));
+		assertThat(countryAreaBL.isTimeConflict(assignment1, assignment2)).isTrue();
 	}
 
 	private void setAssignment(final I_C_CountryArea_Assign assignment, String validFromStr, String validToStr) throws ParseException
@@ -95,17 +99,7 @@ public class CountryAreaBLTest
 		final Timestamp validFrom = validFromStr == null ? null : TimeUtil.asTimestamp(df.parse(validFromStr));
 		final Timestamp validTo = validToStr == null ? null : TimeUtil.asTimestamp(df.parse(validToStr));
 
-		new Expectations()
-		{
-			{
-				assignment.getValidFrom();
-				minTimes = 0;
-				result = validFrom;
-				
-				assignment.getValidTo();
-				minTimes = 0;
-				result = validTo;
-			}
-		};
+		Mockito.when(assignment.getValidFrom()).thenReturn(validFrom);
+		Mockito.when(assignment.getValidTo()).thenReturn(validTo);
 	}
 }

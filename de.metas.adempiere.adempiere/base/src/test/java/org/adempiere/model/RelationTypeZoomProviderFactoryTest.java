@@ -3,6 +3,7 @@ package org.adempiere.model;
 import static org.adempiere.model.InterfaceWrapperHelper.newInstance;
 import static org.adempiere.model.InterfaceWrapperHelper.save;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import org.adempiere.ad.service.ILookupDAO;
 import org.adempiere.ad.service.impl.LookupDAO;
@@ -15,13 +16,12 @@ import org.compiere.model.I_AD_Reference;
 import org.compiere.model.I_AD_RelationType;
 import org.compiere.model.I_AD_Table;
 import org.compiere.model.X_AD_Reference;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
 import de.metas.util.Services;
 import lombok.NonNull;
-import mockit.Expectations;
-import mockit.Mocked;
 
 /*
  * #%L
@@ -47,14 +47,14 @@ import mockit.Mocked;
 
 public class RelationTypeZoomProviderFactoryTest
 {
-	@Mocked
 	private LookupDAO lookupDao;
 
-	@Before
+	@BeforeEach
 	public void init()
 	{
 		AdempiereTestHelper.get().init();
 
+		lookupDao = Mockito.mock(LookupDAO.class);
 		Services.registerService(ILookupDAO.class, lookupDao);
 	}
 
@@ -79,30 +79,28 @@ public class RelationTypeZoomProviderFactoryTest
 		final boolean isTableRecordIdTarget = true;
 		final I_AD_RelationType relationType = createRelationType(isTableRecordIdTarget, null, referenceTarget);
 
-		TableRefInfo build = LookupDAO.TableRefInfo.builder()
-				.setIdentifier(refTargetName)
-				.setTableName(tableName)
-				.setKeyColumn(keyColumnName)
-				.setDisplayColumn(keyColumnName)
-				.setValueDisplayed(true)
-				.setDisplayColumnSQL("")
-				.setTranslated(true)
-				.setWhereClause("")
-				.setOrderByClause("")
-				.setZoomSO_Window_ID(null)
-				.setZoomPO_Window_ID(null)
-				.setZoomAD_Window_ID_Override(null)
-				.setAutoComplete(false)
-				.build();
-
-		lookupDaoExpectations(referenceTarget.getAD_Reference_ID(), build);
+		lookupDaoExpectations(
+				referenceTarget.getAD_Reference_ID(),
+				LookupDAO.TableRefInfo.builder()
+						.setIdentifier(refTargetName)
+						.setTableName(tableName)
+						.setKeyColumn(keyColumnName)
+						.setDisplayColumn(keyColumnName)
+						.setValueDisplayed(true)
+						.setDisplayColumnSQL("")
+						.setTranslated(true)
+						.setWhereClause("")
+						.setOrderByClause("")
+						.setZoomSO_Window_ID(null)
+						.setZoomPO_Window_ID(null)
+						.setZoomAD_Window_ID_Override(null)
+						.setAutoComplete(false)
+						.build());
 
 		final RelationTypeZoomProvider zoomProvider = RelationTypeZoomProvidersFactory.findZoomProvider(relationType);
 
 		assertThat(zoomProvider.isTableRecordIdTarget()).isTrue();
 	}
-
-
 
 	@Test
 	public void findZoomProvider_Is_Not_TableRecordIdTarget_WithSource()
@@ -126,46 +124,39 @@ public class RelationTypeZoomProviderFactoryTest
 		createRefTable(referenceTarget, table);
 
 		final boolean isTableRecordIdTarget = false;
-		final I_AD_RelationType relationType = createRelationType(isTableRecordIdTarget, referenceSource,  referenceTarget);
+		final I_AD_RelationType relationType = createRelationType(isTableRecordIdTarget, referenceSource, referenceTarget);
 
-		TableRefInfo build = LookupDAO.TableRefInfo.builder()
-				.setIdentifier(refTargetName)
-				.setTableName(tableName)
-				.setKeyColumn(keyColumnName)
-				.setDisplayColumn(keyColumnName)
-				.setValueDisplayed(true)
-				.setDisplayColumnSQL("")
-				.setTranslated(true)
-				.setWhereClause("")
-				.setOrderByClause("")
-				.setZoomSO_Window_ID(null)
-				.setZoomPO_Window_ID(null)
-				.setZoomAD_Window_ID_Override(null)
-				.setAutoComplete(false)
-				.build();
-
-		lookupDaoExpectations(referenceTarget.getAD_Reference_ID(), build);
+		lookupDaoExpectations(
+				referenceTarget.getAD_Reference_ID(),
+				LookupDAO.TableRefInfo.builder()
+						.setIdentifier(refTargetName)
+						.setTableName(tableName)
+						.setKeyColumn(keyColumnName)
+						.setDisplayColumn(keyColumnName)
+						.setValueDisplayed(true)
+						.setDisplayColumnSQL("")
+						.setTranslated(true)
+						.setWhereClause("")
+						.setOrderByClause("")
+						.setZoomSO_Window_ID(null)
+						.setZoomPO_Window_ID(null)
+						.setZoomAD_Window_ID_Override(null)
+						.setAutoComplete(false)
+						.build());
 
 		final RelationTypeZoomProvider zoomProvider = RelationTypeZoomProvidersFactory.findZoomProvider(relationType);
-
-		assertThat(zoomProvider.isTableRecordIdTarget()).isFalse();
+		assertThat(zoomProvider).isNull();
 	}
 
-	private void lookupDaoExpectations(final int referenceID, final TableRefInfo builder)
+	private void lookupDaoExpectations(final int referenceID, final TableRefInfo tableRefInfo)
 	{
-		new Expectations()
-		{
-			{
-				lookupDao.retrieveTableRefInfo(referenceID);
-				result = builder;
-			}
-		};
+		Mockito.when(lookupDao.retrieveTableRefInfo(referenceID))
+				.thenReturn(tableRefInfo);
 	}
 
-	@Test(expected = AdempiereException.class)
+	@Test
 	public void findZoomProvider_DefaultRelType_NoSource()
 	{
-
 		final String refTargetName = "RefTargetName1";
 		final String validationType = X_AD_Reference.VALIDATIONTYPE_TableValidation;
 		final I_AD_Reference referenceTarget = createReferenceSourceOrTarget(refTargetName, validationType);
@@ -179,10 +170,10 @@ public class RelationTypeZoomProviderFactoryTest
 		createRefTable(referenceTarget, table);
 
 		final boolean isTableRecordIdTarget = false;
-		final I_AD_RelationType relationType = createRelationType(isTableRecordIdTarget, null,  referenceTarget);
+		final I_AD_RelationType relationType = createRelationType(isTableRecordIdTarget, null, referenceTarget);
 
-		RelationTypeZoomProvidersFactory.findZoomProvider(relationType);
-
+		assertThatThrownBy(() -> RelationTypeZoomProvidersFactory.findZoomProvider(relationType))
+				.isInstanceOf(AdempiereException.class);
 	}
 
 	private I_AD_Column createColumn(I_AD_Table table, String columnname)

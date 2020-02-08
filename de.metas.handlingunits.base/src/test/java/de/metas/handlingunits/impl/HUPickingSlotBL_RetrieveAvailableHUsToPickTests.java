@@ -6,24 +6,21 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.Set;
 
 import org.adempiere.ad.wrapper.POJOWrapper;
 import org.adempiere.test.AdempiereTestHelper;
 import org.adempiere.util.lang.IContextAware;
+import org.compiere.SpringContextHolder;
 import org.compiere.model.I_C_BPartner;
 import org.compiere.model.I_C_UOM;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.compiere.model.I_M_Locator;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentMatchers;
+import org.mockito.Mockito;
 
 import com.google.common.collect.ImmutableSet;
 
-import de.metas.ShutdownListener;
-import de.metas.StartupListener;
 import de.metas.handlingunits.HuId;
 import de.metas.handlingunits.model.I_M_HU;
 import de.metas.handlingunits.model.I_M_HU_Item;
@@ -44,13 +41,10 @@ import de.metas.inoutcandidate.model.I_M_ShipmentSchedule;
 import de.metas.quantity.Quantity;
 import de.metas.storage.IStorageEngine;
 import de.metas.storage.IStorageEngineService;
-import de.metas.storage.IStorageQuery;
+import de.metas.storage.spi.hu.impl.HUStorageEngine;
 import de.metas.storage.spi.hu.impl.HUStorageRecord;
 import de.metas.util.Services;
 import lombok.Value;
-import mockit.Expectations;
-import mockit.Injectable;
-import mockit.Mocked;
 
 /*
  * #%L
@@ -73,32 +67,32 @@ import mockit.Mocked;
  * <http://www.gnu.org/licenses/gpl-2.0.html>.
  * #L%
  */
-@RunWith(SpringRunner.class)
-@SpringBootTest(classes = { StartupListener.class, ShutdownListener.class, PickingCandidateRepository.class })
 public class HUPickingSlotBL_RetrieveAvailableHUsToPickTests
 {
-	@Injectable
 	private IStorageEngine storageEngine;
-
-	@Mocked
-	private HUStorageRecord storageRecord;
-
-	@Autowired
 	private PickingCandidateRepository pickingCandidatesRepo;
 
 	private I_C_UOM uom;
+	private I_M_Locator locator;
 
-	@Before
+	@BeforeEach
 	public void init()
 	{
 		AdempiereTestHelper.get().init();
 
+		storageEngine = Mockito.spy(HUStorageEngine.instance);
 		Services.get(IStorageEngineService.class).registerStorageEngine(storageEngine);
 
 		Services.registerService(IShipmentScheduleUpdater.class, ShipmentScheduleUpdater.newInstanceForUnitTesting());
 
+		pickingCandidatesRepo = new PickingCandidateRepository();
+		SpringContextHolder.registerJUnitBean(pickingCandidatesRepo);
+
 		uom = newInstance(I_C_UOM.class);
 		saveRecord(uom);
+
+		locator = newInstance(I_M_Locator.class);
+		saveRecord(locator);
 	}
 
 	@Test
@@ -163,7 +157,7 @@ public class HUPickingSlotBL_RetrieveAvailableHUsToPickTests
 
 		final I_M_HU vhu = newInstance(I_M_HU.class);
 		vhu.setHUStatus(X_M_HU.HUSTATUS_Active);
-		vhu.setM_Locator_ID(LOCATOR_ID);
+		vhu.setM_Locator_ID(locator.getM_Locator_ID());
 		vhu.setM_HU_Item_Parent(item);
 		saveRecord(vhu);
 
@@ -195,7 +189,7 @@ public class HUPickingSlotBL_RetrieveAvailableHUsToPickTests
 
 		final I_M_HU vhu = newInstance(I_M_HU.class);
 		vhu.setHUStatus(X_M_HU.HUSTATUS_Active);
-		vhu.setM_Locator_ID(LOCATOR_ID);
+		vhu.setM_Locator_ID(locator.getM_Locator_ID());
 		vhu.setM_HU_Item_Parent(item);
 		saveRecord(vhu);
 
@@ -228,7 +222,7 @@ public class HUPickingSlotBL_RetrieveAvailableHUsToPickTests
 
 		final I_M_HU vhu = newInstance(I_M_HU.class);
 		vhu.setHUStatus(X_M_HU.HUSTATUS_Active);
-		vhu.setM_Locator_ID(LOCATOR_ID);
+		vhu.setM_Locator_ID(locator.getM_Locator_ID());
 		vhu.setM_HU_Item_Parent(item);
 		saveRecord(vhu);
 		POJOWrapper.setInstanceName(vhu, "vhu");
@@ -333,7 +327,7 @@ public class HUPickingSlotBL_RetrieveAvailableHUsToPickTests
 
 		final I_M_HU secondTu = newInstance(I_M_HU.class);
 		secondTu.setHUStatus(X_M_HU.HUSTATUS_Active);
-		secondTu.setM_Locator_ID(LOCATOR_ID);
+		secondTu.setM_Locator_ID(locator.getM_Locator_ID());
 		secondTu.setM_HU_Item_Parent(secondLuItem);
 		saveRecord(secondTu);
 
@@ -344,7 +338,7 @@ public class HUPickingSlotBL_RetrieveAvailableHUsToPickTests
 
 		final I_M_HU secondVhu = newInstance(I_M_HU.class);
 		secondVhu.setHUStatus(X_M_HU.HUSTATUS_Active);
-		secondVhu.setM_Locator_ID(LOCATOR_ID);
+		secondVhu.setM_Locator_ID(locator.getM_Locator_ID());
 		secondVhu.setM_HU_Item_Parent(secondTuItem);
 		saveRecord(secondVhu);
 
@@ -384,7 +378,7 @@ public class HUPickingSlotBL_RetrieveAvailableHUsToPickTests
 	{
 		final I_M_HU hu = newInstance(I_M_HU.class);
 		hu.setHUStatus(X_M_HU.HUSTATUS_Active);
-		hu.setM_Locator_ID(LOCATOR_ID);
+		hu.setM_Locator_ID(locator.getM_Locator_ID());
 		saveRecord(hu);
 		return hu;
 	}
@@ -401,7 +395,7 @@ public class HUPickingSlotBL_RetrieveAvailableHUsToPickTests
 
 		final I_M_HU tu = newInstance(I_M_HU.class);
 		tu.setHUStatus(X_M_HU.HUSTATUS_Active);
-		tu.setM_Locator_ID(LOCATOR_ID);
+		tu.setM_Locator_ID(locator.getM_Locator_ID());
 		tu.setM_HU_Item_Parent(luItem);
 		saveRecord(tu);
 		POJOWrapper.setInstanceName(tu, "tu");
@@ -413,7 +407,7 @@ public class HUPickingSlotBL_RetrieveAvailableHUsToPickTests
 
 		final I_M_HU vhu = newInstance(I_M_HU.class);
 		vhu.setHUStatus(X_M_HU.HUSTATUS_Active);
-		vhu.setM_Locator_ID(LOCATOR_ID);
+		vhu.setM_Locator_ID(locator.getM_Locator_ID());
 		vhu.setM_HU_Item_Parent(tuItem);
 		saveRecord(vhu);
 		POJOWrapper.setInstanceName(vhu, "vhu");
@@ -429,8 +423,6 @@ public class HUPickingSlotBL_RetrieveAvailableHUsToPickTests
 		I_M_HU vhu;
 	}
 
-	private final int LOCATOR_ID = 10;
-
 	/**
 	 * Set up the storage engine to return the given {@code vhu} and call the method under test.
 	 *
@@ -438,7 +430,6 @@ public class HUPickingSlotBL_RetrieveAvailableHUsToPickTests
 	 * @param onlyTopLevelHUs TODO
 	 * @return
 	 */
-	@SuppressWarnings("unchecked")
 	private List<I_M_HU> common(
 			final I_M_HU vhu,
 			final boolean onlyTopLevelHUs)
@@ -456,16 +447,15 @@ public class HUPickingSlotBL_RetrieveAvailableHUsToPickTests
 
 		saveRecord(shipmentSchedule);
 
-		// @formatter:off
-		new Expectations()
-		{{
-				storageEngine.retrieveStorageRecords((IContextAware)any, (Set<IStorageQuery>)any);
-				result = ImmutableSet.of(storageRecord);
+		{
+			final HUStorageRecord storageRecord = Mockito.mock(HUStorageRecord.class);
+			Mockito.when(storageRecord.getVHU()).thenReturn(vhu);
+			Mockito.when(storageRecord.getLocator()).thenReturn(locator);
 
-				storageRecord.getVHU();	result = vhu;
-				storageRecord.getLocator().getM_Locator_ID(); result = LOCATOR_ID;
-		}};
-		// @formatter:on
+			Mockito.doReturn(ImmutableSet.of(storageRecord))
+					.when(storageEngine)
+					.retrieveStorageRecords(ArgumentMatchers.any(IContextAware.class), ArgumentMatchers.anySet());
+		}
 
 		final List<I_M_HU> result = new HUPickingSlotBL()
 				.retrieveAvailableHUsToPick(PickingHUsQuery.builder()
