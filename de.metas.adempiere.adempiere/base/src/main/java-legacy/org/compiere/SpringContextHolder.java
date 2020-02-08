@@ -133,6 +133,8 @@ public final class SpringContextHolder
 	 */
 	public <T> Collection<T> getBeansOfType(@NonNull final Class<T> requiredType)
 	{
+		final ApplicationContext springApplicationContext = getApplicationContext();
+
 		if (Adempiere.isUnitTestMode())
 		{
 			@SuppressWarnings("unchecked")
@@ -142,9 +144,12 @@ public final class SpringContextHolder
 				logger.info("JUnit testing. Returning manually registered bean as Collection: {}", beanImpl);
 				return ImmutableList.of(beanImpl);
 			}
+			else if (springApplicationContext == null)
+			{
+				return ImmutableList.of();
+			}
 		}
 
-		final ApplicationContext springApplicationContext = getApplicationContext();
 		try
 		{
 			throwExceptionIfNull(springApplicationContext);
