@@ -11,20 +11,13 @@ import java.math.BigDecimal;
 import java.sql.Timestamp;
 
 import org.adempiere.test.AdempiereTestHelper;
-import org.compiere.Adempiere;
 import org.compiere.model.I_C_BPartner;
 import org.compiere.model.I_C_BPartner_CreditLimit;
 import org.compiere.model.I_C_CreditLimit_Type;
 import org.compiere.util.TimeUtil;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-import de.metas.StartupListener;
-import de.metas.bpartner.service.BPartnerCreditLimitRepository;
 import de.metas.util.time.FixedTimeSource;
 import de.metas.util.time.SystemTime;
 import lombok.Builder;
@@ -52,31 +45,15 @@ import lombok.NonNull;
  * #L%
  */
 
-/**
- * @author metas-dev <dev@metasfresh.com>
- *
- */
-@RunWith(SpringRunner.class)
-@SpringBootTest(classes = { StartupListener.class, BPartnerCreditLimitRepository.class })
 public class BPartnerCreditLimitRepositoryTest
 {
-	@BeforeClass
-	public static void staticInit()
-	{
-		AdempiereTestHelper.get().staticInit();
-	}
-
-	private BPartnerCreditLimitRepository repository;
 	private I_C_CreditLimit_Type typeInsurance;
 	private I_C_CreditLimit_Type typeManagement;
 
-
-
-	@Before
+	@BeforeEach
 	public void init()
 	{
 		AdempiereTestHelper.get().init();
-		repository = Adempiere.getBean(BPartnerCreditLimitRepository.class);
 
 		typeInsurance = newCreditLimitType()
 				.name("Insurance")
@@ -104,7 +81,6 @@ public class BPartnerCreditLimitRepositoryTest
 				.dateFrom(TimeUtil.parseTimestamp("2018-02-10"))
 				.build();
 
-
 		newBPCreditLimit()
 				.partner(partner)
 				.amount(BigDecimal.valueOf(200))
@@ -114,12 +90,12 @@ public class BPartnerCreditLimitRepositoryTest
 
 		final Timestamp today = SystemTime.asDayTimestamp();
 
+		final BPartnerCreditLimitRepository repository = new BPartnerCreditLimitRepository();
 		final BigDecimal limitAmount = repository.retrieveCreditLimitByBPartnerId(partner.getC_BPartner_ID(), today);
 
-		assertThat(limitAmount).isEqualTo(BigDecimal.valueOf(200));
+		assertThat(limitAmount).isEqualTo("200");
 
 	}
-
 
 	@Test
 	public void retrieveLimitWhenHavingDifferentTypeWithDifferentDates1()
@@ -134,7 +110,6 @@ public class BPartnerCreditLimitRepositoryTest
 				.dateFrom(TimeUtil.parseTimestamp("2018-02-10"))
 				.build();
 
-
 		newBPCreditLimit()
 				.partner(partner)
 				.amount(BigDecimal.valueOf(200))
@@ -144,9 +119,10 @@ public class BPartnerCreditLimitRepositoryTest
 
 		final Timestamp today = SystemTime.asDayTimestamp();
 
+		final BPartnerCreditLimitRepository repository = new BPartnerCreditLimitRepository();
 		final BigDecimal limitAmount = repository.retrieveCreditLimitByBPartnerId(partner.getC_BPartner_ID(), today);
 
-		assertThat(limitAmount).isEqualTo(BigDecimal.valueOf(200));
+		assertThat(limitAmount).isEqualTo("200");
 	}
 
 	@Test
@@ -162,7 +138,6 @@ public class BPartnerCreditLimitRepositoryTest
 				.dateFrom(TimeUtil.parseTimestamp("2018-02-10"))
 				.build();
 
-
 		newBPCreditLimit()
 				.partner(partner)
 				.amount(BigDecimal.valueOf(200))
@@ -172,9 +147,10 @@ public class BPartnerCreditLimitRepositoryTest
 
 		final Timestamp today = SystemTime.asDayTimestamp();
 
+		final BPartnerCreditLimitRepository repository = new BPartnerCreditLimitRepository();
 		final BigDecimal limitAmount = repository.retrieveCreditLimitByBPartnerId(partner.getC_BPartner_ID(), today);
 
-		assertThat(limitAmount).isEqualTo(BigDecimal.valueOf(200));
+		assertThat(limitAmount).isEqualTo("200");
 	}
 
 	@Builder(builderMethodName = "newCreditLimitType")
