@@ -38,12 +38,7 @@ import org.compiere.model.I_C_BPartner_Product;
 import org.compiere.util.Env;
 import org.junit.Assert;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 
-import de.metas.ShutdownListener;
-import de.metas.StartupListener;
 import de.metas.adempiere.model.I_M_Product;
 import de.metas.ordercandidate.AbstractOLCandTestSupport;
 import de.metas.ordercandidate.api.OLCandRegistry;
@@ -51,9 +46,6 @@ import de.metas.ordercandidate.api.OLCandValidatorService;
 import de.metas.ordercandidate.model.I_C_OLCand;
 import de.metas.util.Services;
 
-@RunWith(SpringRunner.class)
-@SpringBootTest(classes = { StartupListener.class, ShutdownListener.class,
-		OLCandRegistry.class })
 public class C_OLCandMVTest extends AbstractOLCandTestSupport
 {
 	private final Properties ctx;
