@@ -34,21 +34,13 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.Properties;
 
-import org.junit.runner.RunWith;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
-
-import de.metas.StartupListener;
-import de.metas.currency.CurrencyRepository;
 import de.metas.fresh.invoicecandidate.spi.impl.FreshQuantityDiscountAggregator;
 import de.metas.inout.model.I_M_InOutLine;
 import de.metas.invoicecandidate.api.IInvoiceHeader;
 import de.metas.invoicecandidate.api.IInvoiceLineRW;
 import de.metas.invoicecandidate.api.impl.aggregationEngine.TestTwoReceiptsOneInvoice_QualityDiscount1;
-import de.metas.invoicecandidate.internalbusinesslogic.InvoiceCandidateRecordService;
 import de.metas.invoicecandidate.model.I_C_Invoice_Candidate;
 import de.metas.invoicecandidate.model.I_C_Invoice_Candidate_Agg;
-import de.metas.money.MoneyService;
 import de.metas.util.collections.CollectionUtils;
 
 /**
@@ -64,8 +56,6 @@ import de.metas.util.collections.CollectionUtils;
  *
  */
 
-@RunWith(SpringRunner.class)
-@SpringBootTest(classes = { StartupListener.class, /* ShutdownListener.class,*/ MoneyService.class, CurrencyRepository.class, InvoiceCandidateRecordService.class })
 public class TestFreshTwoReceiptssOneInvoice_FreshQualityDiscount1 extends TestTwoReceiptsOneInvoice_QualityDiscount1
 {
 	private I_C_Invoice_Candidate_Agg freshAgg;

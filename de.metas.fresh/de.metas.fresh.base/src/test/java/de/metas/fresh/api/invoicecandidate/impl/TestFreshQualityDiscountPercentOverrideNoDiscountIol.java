@@ -31,22 +31,14 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.Properties;
 
-import org.junit.runner.RunWith;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
-
-import de.metas.StartupListener;
-import de.metas.currency.CurrencyRepository;
 import de.metas.fresh.invoicecandidate.spi.impl.FreshQuantityDiscountAggregator;
 import de.metas.inout.model.I_M_InOutLine;
 import de.metas.invoicecandidate.api.IInvoiceHeader;
 import de.metas.invoicecandidate.api.IInvoiceLineRW;
 import de.metas.invoicecandidate.api.InvoiceCandidateInOutLineToUpdate;
 import de.metas.invoicecandidate.api.impl.aggregationEngine.TestQualityDiscountPercentOverrideNoDiscountIol;
-import de.metas.invoicecandidate.internalbusinesslogic.InvoiceCandidateRecordService;
 import de.metas.invoicecandidate.model.I_C_Invoice_Candidate;
 import de.metas.invoicecandidate.model.I_C_Invoice_Candidate_Agg;
-import de.metas.money.MoneyService;
 
 /**
  * Checks the {@link FreshQuantityDiscountAggregator} when using {@link I_C_Invoice_Candidate#setQualityDiscountPercent_Override(BigDecimal)}.
@@ -54,8 +46,6 @@ import de.metas.money.MoneyService;
  * Note that there is also no in-dispute iol in this case.
  *
  */
-@RunWith(SpringRunner.class)
-@SpringBootTest(classes = { StartupListener.class,/* ShutdownListener.class,*/ InvoiceCandidateRecordService.class, MoneyService.class, CurrencyRepository.class })
 public class TestFreshQualityDiscountPercentOverrideNoDiscountIol extends TestQualityDiscountPercentOverrideNoDiscountIol
 {
 	private I_C_Invoice_Candidate_Agg freshAgg;
