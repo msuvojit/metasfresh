@@ -63,8 +63,6 @@ import de.metas.util.time.SystemTime;
  * #L%
  */
 
-// @RunWith(SpringRunner.class)
-// @SpringBootTest(classes = { StartupListener.class, ShutdownListener.class, ProfitPriceActualFactory.class })
 public class PurchaseOrderFromItemsAggregatorTest
 {
 	private I_C_UOM EACH;

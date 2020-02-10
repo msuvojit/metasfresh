@@ -70,9 +70,6 @@ import de.metas.uom.UomId;
 import de.metas.user.UserRepository;
 import de.metas.util.Services;
 
-// @RunWith(SpringRunner.class)
-// @SpringBootTest(classes = { StartupListener.class, ShutdownListener.class, MoneyService.class, CurrencyRepository.class, InvoiceCandidateRecordService.class })
-// @DirtiesContext(classMode = ClassMode.BEFORE_CLASS)
 @ExtendWith(AdempiereTestWatcher.class)
 public class QtyDeliveredFromOrderToInvoiceTest
 {
