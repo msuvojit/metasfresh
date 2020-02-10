@@ -39,35 +39,26 @@ import org.adempiere.ad.trx.api.ITrxManager;
 import org.adempiere.model.InterfaceWrapperHelper;
 import org.adempiere.model.PlainContextAware;
 import org.adempiere.util.lang.ImmutablePair;
+import org.compiere.SpringContextHolder;
 import org.compiere.model.I_C_DocType;
 import org.compiere.model.I_C_InvoiceLine;
 import org.compiere.model.X_C_DocType;
 import org.compiere.util.Env;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.context.junit4.SpringRunner;
 
-import de.metas.ShutdownListener;
-import de.metas.StartupListener;
 import de.metas.bpartner.BPartnerLocationId;
 import de.metas.currency.CurrencyRepository;
 import de.metas.document.engine.IDocument;
 import de.metas.invoicecandidate.AbstractICTestSupport;
 import de.metas.invoicecandidate.InvoiceCandidateIds;
 import de.metas.invoicecandidate.api.IInvoiceCandDAO;
-import de.metas.invoicecandidate.internalbusinesslogic.InvoiceCandidateRecordService;
 import de.metas.invoicecandidate.model.I_C_Invoice;
 import de.metas.invoicecandidate.model.I_C_Invoice_Candidate;
 import de.metas.invoicecandidate.model.I_C_Invoice_Line_Alloc;
 import de.metas.money.MoneyService;
 import de.metas.util.Services;
 
-@RunWith(SpringRunner.class)
-@SpringBootTest(classes = { StartupListener.class, ShutdownListener.class, MoneyService.class, CurrencyRepository.class, InvoiceCandidateRecordService.class })
-@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_CLASS) // without this, this test fails when run in eclipse together with all tests of this project
 public class InvoiceCandBLHandlCompleteAndReversalTest extends AbstractICTestSupport
 {
 
@@ -83,6 +74,8 @@ public class InvoiceCandBLHandlCompleteAndReversalTest extends AbstractICTestSup
 	public void init()
 	{
 		invoiceCandBL = new InvoiceCandBL();
+
+		SpringContextHolder.registerJUnitBean(new MoneyService(new CurrencyRepository()));
 
 		// registerModelInterceptors(); we don't want any MV action..we are only interested in testing the particular BL methods under test.
 	}
@@ -101,7 +94,6 @@ public class InvoiceCandBLHandlCompleteAndReversalTest extends AbstractICTestSup
 				.setSOTrx(true)
 				.setQtyOrdered(4)
 				.build();
-
 
 		final BigDecimal invoiceQtyInvoiced = TEN;
 

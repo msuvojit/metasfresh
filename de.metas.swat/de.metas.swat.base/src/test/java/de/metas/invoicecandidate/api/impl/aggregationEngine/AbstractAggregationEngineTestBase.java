@@ -38,6 +38,7 @@ import javax.annotation.OverridingMethodsMustInvokeSuper;
 import org.adempiere.ad.wrapper.POJOWrapper;
 import org.adempiere.model.InterfaceWrapperHelper;
 import org.adempiere.test.AdempiereTestWatcher;
+import org.compiere.SpringContextHolder;
 import org.compiere.model.I_M_PriceList;
 import org.compiere.util.Env;
 import org.compiere.util.Trx;
@@ -50,6 +51,7 @@ import ch.qos.logback.classic.Level;
 import de.metas.bpartner.BPartnerLocationId;
 import de.metas.bpartner.service.IBPartnerBL;
 import de.metas.bpartner.service.impl.BPartnerBL;
+import de.metas.currency.CurrencyRepository;
 import de.metas.inout.model.I_M_InOut;
 import de.metas.inout.model.I_M_InOutLine;
 import de.metas.invoicecandidate.AbstractICTestSupport;
@@ -58,12 +60,14 @@ import de.metas.invoicecandidate.api.IInvoiceHeader;
 import de.metas.invoicecandidate.api.IInvoiceLineRW;
 import de.metas.invoicecandidate.api.InvoiceCandidateInOutLineToUpdate;
 import de.metas.invoicecandidate.api.impl.AggregationEngine;
+import de.metas.invoicecandidate.internalbusinesslogic.InvoiceCandidateRecordService;
 import de.metas.invoicecandidate.model.I_C_ILCandHandler;
 import de.metas.invoicecandidate.model.I_C_InvoiceCandidate_InOutLine;
 import de.metas.invoicecandidate.model.I_C_Invoice_Candidate;
 import de.metas.invoicecandidate.spi.impl.ManualCandidateHandler;
 import de.metas.logging.LogManager;
 import de.metas.money.CurrencyId;
+import de.metas.money.MoneyService;
 import de.metas.pricing.PriceListVersionId;
 import de.metas.pricing.service.IPriceListDAO;
 import de.metas.quantity.StockQtyAndUOMQty;
@@ -97,6 +101,8 @@ public abstract class AbstractAggregationEngineTestBase extends AbstractICTestSu
 		LogManager.setLevel(Level.DEBUG);
 
 		Services.registerService(IBPartnerBL.class, new BPartnerBL(new UserRepository()));
+		SpringContextHolder.registerJUnitBean(new InvoiceCandidateRecordService());
+		SpringContextHolder.registerJUnitBean(new MoneyService(new CurrencyRepository()));
 	}
 
 	protected final List<IInvoiceLineRW> getInvoiceLines(final IInvoiceHeader invoice)

@@ -46,17 +46,11 @@ import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TestWatcher;
-import org.junit.runner.RunWith;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import ch.qos.logback.classic.Level;
-import de.metas.ShutdownListener;
-import de.metas.StartupListener;
 import de.metas.bpartner.BPartnerLocationId;
 import de.metas.bpartner.service.IBPartnerStatisticsUpdater;
 import de.metas.bpartner.service.impl.BPartnerStatisticsUpdater;
-import de.metas.currency.CurrencyRepository;
 import de.metas.document.engine.DocStatus;
 import de.metas.invoicecandidate.AbstractICTestSupport;
 import de.metas.invoicecandidate.api.IInvoiceCandBL;
@@ -66,14 +60,11 @@ import de.metas.invoicecandidate.model.I_C_ILCandHandler;
 import de.metas.invoicecandidate.model.I_C_Invoice_Candidate;
 import de.metas.invoicecandidate.model.X_C_Invoice_Candidate;
 import de.metas.logging.LogManager;
-import de.metas.money.MoneyService;
 import de.metas.process.PInstanceId;
 import de.metas.util.Services;
 import de.metas.util.collections.IteratorUtils;
 
 @Ignore
-@RunWith(SpringRunner.class)
-@SpringBootTest(classes = { StartupListener.class, ShutdownListener.class, MoneyService.class, CurrencyRepository.class })
 public class ManualCandidateHandlerTest extends AbstractICTestSupport
 {
 	private I_C_ILCandHandler manualHandler;

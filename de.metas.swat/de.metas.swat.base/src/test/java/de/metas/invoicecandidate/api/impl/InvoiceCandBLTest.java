@@ -40,17 +40,12 @@ import java.util.Properties;
 import org.adempiere.ad.wrapper.POJOWrapper;
 import org.adempiere.model.InterfaceWrapperHelper;
 import org.adempiere.test.AdempiereTestHelper;
+import org.compiere.SpringContextHolder;
 import org.compiere.model.I_C_BPartner;
 import org.compiere.model.I_M_InOut;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-import de.metas.ShutdownListener;
-import de.metas.StartupListener;
 import de.metas.bpartner.service.IBPartnerStatisticsUpdater;
 import de.metas.bpartner.service.impl.BPartnerStatisticsUpdater;
 import de.metas.currency.CurrencyPrecision;
@@ -66,19 +61,17 @@ import de.metas.util.Check;
 import de.metas.util.Services;
 import de.metas.util.lang.Percent;
 
-
-@RunWith(SpringRunner.class)
-@SpringBootTest(classes = { StartupListener.class, ShutdownListener.class, MoneyService.class, CurrencyRepository.class, InvoiceCandidateRecordService.class })
-@DirtiesContext(classMode = DirtiesContext.ClassMode.BEFORE_CLASS) // without this, this test fails when run in eclipse together with all tests of this project
 public class InvoiceCandBLTest
 {
 	private InvoiceCandBL invoiceCandBL;
 	private AbstractICTestSupport icTestSupport;
 
-	@Before
+	@BeforeEach
 	public void init()
 	{
 		AdempiereTestHelper.get().init();
+		SpringContextHolder.registerJUnitBean(new MoneyService(new CurrencyRepository()));
+		SpringContextHolder.registerJUnitBean(new InvoiceCandidateRecordService());
 
 		invoiceCandBL = new InvoiceCandBL();
 		icTestSupport = new AbstractICTestSupport();
@@ -414,7 +407,7 @@ public class InvoiceCandBLTest
 			final BigDecimal expectedQtyDelivered_Effective)
 	{
 		final I_C_BPartner bpartner = icTestSupport.bpartner("test-bp");
-		final I_C_Invoice_Candidate icRecord = icTestSupport.createInvoiceCandidate(bpartner.getC_BPartner_ID()/*partner*/, 10/*priceEntered*/, 3/*qty*/, 10/*discount*/, false/*isManual*/, false/*isSOTrx*/);
+		final I_C_Invoice_Candidate icRecord = icTestSupport.createInvoiceCandidate(bpartner.getC_BPartner_ID()/* partner */, 10/* priceEntered */, 3/* qty */, 10/* discount */, false/* isManual */, false/* isSOTrx */);
 
 		// the qtys we set here don't really matter; the invoice candidate will be updated
 		icRecord.setM_Product_ID(icTestSupport.getProductId().getRepoId());
@@ -455,7 +448,6 @@ public class InvoiceCandBLTest
 		iol2.setQtyEntered(qtyWithIssues.multiply(TEN));
 		iol2.setIsInDispute(true);
 		save(iol2);
-
 
 		final I_C_InvoiceCandidate_InOutLine icIol2 = InterfaceWrapperHelper.create(ctx, I_C_InvoiceCandidate_InOutLine.class, trxName);
 		icIol2.setC_Invoice_Candidate(icRecord);

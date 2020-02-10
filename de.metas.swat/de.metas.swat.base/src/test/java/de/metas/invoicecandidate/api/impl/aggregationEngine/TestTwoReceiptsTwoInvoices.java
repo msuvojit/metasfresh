@@ -33,25 +33,14 @@ import java.math.BigDecimal;
 import java.util.Collections;
 import java.util.List;
 
-import org.junit.runner.RunWith;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
-
-import de.metas.ShutdownListener;
-import de.metas.StartupListener;
-import de.metas.currency.CurrencyRepository;
 import de.metas.inout.model.I_M_InOutLine;
 import de.metas.invoicecandidate.api.IInvoiceHeader;
 import de.metas.invoicecandidate.api.IInvoiceLineRW;
-import de.metas.invoicecandidate.internalbusinesslogic.InvoiceCandidateRecordService;
 import de.metas.invoicecandidate.model.I_C_Invoice_Candidate;
-import de.metas.money.MoneyService;
 
 /**
  * => Expectation: one invoice, one line; on the purchase side we want to aggregate inoutLines over different InOuts, as long as they don't differ in their "invoice-relevant" ASI-values.
  */
-@RunWith(SpringRunner.class)
-@SpringBootTest(classes = { StartupListener.class, ShutdownListener.class, MoneyService.class, CurrencyRepository.class, InvoiceCandidateRecordService.class })
 public class TestTwoReceiptsTwoInvoices extends AbstractTwoInOutsTests
 {
 

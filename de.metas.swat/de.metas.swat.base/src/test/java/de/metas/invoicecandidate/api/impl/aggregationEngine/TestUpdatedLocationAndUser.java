@@ -13,24 +13,14 @@ import org.compiere.model.I_AD_User;
 import org.compiere.model.I_C_BPartner_Location;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.annotation.DirtiesContext.ClassMode;
-import org.springframework.test.context.junit4.SpringRunner;
 
-import de.metas.ShutdownListener;
-import de.metas.StartupListener;
 import de.metas.bpartner.BPartnerLocationId;
 import de.metas.bpartner.service.IBPartnerBL;
 import de.metas.bpartner.service.impl.BPartnerBL;
-import de.metas.currency.CurrencyRepository;
 import de.metas.invoicecandidate.C_Invoice_Candidate_Builder;
 import de.metas.invoicecandidate.api.IInvoiceHeader;
 import de.metas.invoicecandidate.api.impl.AggregationEngine;
-import de.metas.invoicecandidate.internalbusinesslogic.InvoiceCandidateRecordService;
 import de.metas.invoicecandidate.model.I_C_Invoice_Candidate;
-import de.metas.money.MoneyService;
 import de.metas.user.UserRepository;
 import de.metas.util.Services;
 
@@ -55,15 +45,6 @@ import de.metas.util.Services;
  * <http://www.gnu.org/licenses/gpl-2.0.html>.
  * #L%
  */
-@RunWith(SpringRunner.class)
-@SpringBootTest(classes = {
-		StartupListener.class,
-		ShutdownListener.class,
-		//
-		CurrencyRepository.class,
-		MoneyService.class,
-		InvoiceCandidateRecordService.class })
-@DirtiesContext(classMode = ClassMode.BEFORE_CLASS)
 public class TestUpdatedLocationAndUser extends AbstractAggregationEngineTestBase
 {
 	@Override
