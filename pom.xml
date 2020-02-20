@@ -193,6 +193,10 @@
 
 		<module>vertical-healthcare_ch</module>
 
+		<module>metasfresh-webui-api</module>
+
+		<module>metasfresh-dist</module>
+
 	</modules>
 
 	<dependencyManagement>
