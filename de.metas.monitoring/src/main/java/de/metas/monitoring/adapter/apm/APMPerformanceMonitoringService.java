@@ -37,7 +37,6 @@ import lombok.NonNull;
 @Service
 public class APMPerformanceMonitoringService implements PerformanceMonitoringService
 {
-
 	@Override
 	public <V> V monitorTransaction(
 			@NonNull final Callable<V> callable,
