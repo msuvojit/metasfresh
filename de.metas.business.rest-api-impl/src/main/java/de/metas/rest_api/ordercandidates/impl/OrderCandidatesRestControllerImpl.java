@@ -55,6 +55,7 @@ import de.metas.rest_api.attachment.JsonAttachmentType;
 import de.metas.rest_api.bpartner.impl.BpartnerRestController;
 import de.metas.rest_api.exception.MissingResourceException;
 import de.metas.rest_api.ordercandidates.OrderCandidatesRestEndpoint;
+import de.metas.rest_api.ordercandidates.impl.BPartnerEndpointAdapter.PreferredLocationType;
 import de.metas.rest_api.ordercandidates.impl.ProductMasterDataProvider.ProductInfo;
 import de.metas.rest_api.ordercandidates.request.JsonOLCandCreateBulkRequest;
 import de.metas.rest_api.ordercandidates.request.JsonOLCandCreateRequest;
@@ -218,10 +219,10 @@ class OrderCandidatesRestControllerImpl implements OrderCandidatesRestEndpoint
 	{
 		final OrgId orgId = masterdataProvider.getCreateOrgId(json.getOrg());
 
-		final BPartnerInfo bpartnerInfo = masterdataProvider.getCreateBPartnerInfo(json.getBpartner(), true/* billTo */, orgId);
-		final BPartnerInfo billBPartnerInfo = masterdataProvider.getCreateBPartnerInfo(json.getBillBPartner(), true/* billTo */, orgId);
-		masterdataProvider.getCreateBPartnerInfo(json.getDropShipBPartner(), false/* billTo */, orgId);
-		masterdataProvider.getCreateBPartnerInfo(json.getHandOverBPartner(), false/* billTo */, orgId);
+		final BPartnerInfo bpartnerInfo = masterdataProvider.getCreateBPartnerInfo(json.getBpartner(), PreferredLocationType.BillTo, orgId);
+		final BPartnerInfo billBPartnerInfo = masterdataProvider.getCreateBPartnerInfo(json.getBillBPartner(), PreferredLocationType.BillTo, orgId);
+		masterdataProvider.getCreateBPartnerInfo(json.getDropShipBPartner(), PreferredLocationType.ShipTo, orgId);
+		masterdataProvider.getCreateBPartnerInfo(json.getHandOverBPartner(), PreferredLocationType.ShipTo, orgId);
 
 		final ProductInfo productInfo = masterdataProvider.getCreateProductInfo(json.getProduct(), orgId);
 

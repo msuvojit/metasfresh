@@ -48,10 +48,13 @@ import de.metas.rest_api.common.JsonExternalId;
 import de.metas.rest_api.common.SyncAdvise;
 import de.metas.rest_api.common.SyncAdvise.IfExists;
 import de.metas.rest_api.common.SyncAdvise.IfNotExists;
+import de.metas.rest_api.ordercandidates.impl.BPartnerEndpointAdapter.PreferredLocationType;
 import de.metas.rest_api.ordercandidates.request.JsonOrganization;
 import de.metas.rest_api.ordercandidates.request.JsonRequestBPartnerLocationAndContact;
 import de.metas.rest_api.utils.BPartnerQueryService;
 import de.metas.security.PermissionService;
+import de.metas.security.PermissionServiceFactories;
+import de.metas.security.PermissionServiceFactory;
 import de.metas.user.UserId;
 import de.metas.user.UserRepository;
 import de.metas.util.JSONObjectMapper;
@@ -120,7 +123,8 @@ public class MasterdataProviderTest
 		countryRecord.setCountryCode("DE");
 		saveRecord(countryRecord);
 
-		final PermissionService permissionService = Mockito.mock(PermissionService.class);
+		final PermissionServiceFactory permissionServiceFactory = setupMockedPermissionServiceFactory();
+
 		// default bpartner group
 		final I_C_BP_Group groupRecord = newInstance(I_C_BP_Group.class);
 		groupRecord.setIsDefault(true);
@@ -145,7 +149,7 @@ public class MasterdataProviderTest
 				new JsonRequestConsolidateService());
 
 		masterdataProvider = MasterdataProvider.builder()
-				.permissionService(permissionService)
+				.permissionService(permissionServiceFactory.createPermissionService())
 				.bpartnerRestController(bpartnerRestController)
 				.build();
 
@@ -171,6 +175,16 @@ public class MasterdataProviderTest
 				.bpartner(jsonBPartnerInfo)
 				.syncAdvise(SyncAdvise.builder().ifNotExists(IfNotExists.CREATE).build())
 				.build();
+	}
+
+	private PermissionServiceFactory setupMockedPermissionServiceFactory()
+	{
+		final PermissionService permissionService = Mockito.mock(PermissionService.class);
+		Mockito.doReturn(OrgId.ANY).when(permissionService).getDefaultOrgId();
+		Mockito.doNothing().when(permissionService).assertCanCreateOrUpdate(Mockito.any());
+
+		final PermissionServiceFactory permissionServiceFactory = PermissionServiceFactories.singleton(permissionService);
+		return permissionServiceFactory;
 	}
 
 	@Test
@@ -241,11 +255,11 @@ public class MasterdataProviderTest
 				.contact(jsonContact)
 				.build();
 
-		masterdataProvider.getCreateBPartnerInfo(jsonBPartnerInfo, true/*billTo*/, OrgId.ofRepoId(10));
+		masterdataProvider.getCreateBPartnerInfo(jsonBPartnerInfo, PreferredLocationType.BillTo, OrgId.ofRepoId(10));
 		assertThat(POJOLookupMap.get().getRecords(I_AD_User.class, l -> "externalId".equals(l.getExternalId()))).hasSize(1);
 		assertThat(POJOLookupMap.get().getRecords(I_C_BPartner_Location.class, l -> "externalId".equals(l.getExternalId()))).hasSize(1);
 
-		masterdataProvider.getCreateBPartnerInfo(jsonBPartnerInfo, true/*billTo*/, OrgId.ofRepoId(10));
+		masterdataProvider.getCreateBPartnerInfo(jsonBPartnerInfo, PreferredLocationType.BillTo, OrgId.ofRepoId(10));
 		assertThat(POJOLookupMap.get().getRecords(I_AD_User.class, l -> "externalId".equals(l.getExternalId()))).hasSize(1);
 		assertThat(POJOLookupMap.get().getRecords(I_C_BPartner_Location.class, l -> "externalId".equals(l.getExternalId()))).hasSize(1);
 	}

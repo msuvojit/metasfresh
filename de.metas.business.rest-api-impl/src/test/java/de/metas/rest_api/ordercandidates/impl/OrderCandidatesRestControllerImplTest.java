@@ -111,6 +111,7 @@ import de.metas.rest_api.utils.CurrencyService;
 import de.metas.rest_api.utils.DocTypeService;
 import de.metas.security.PermissionService;
 import de.metas.security.PermissionServiceFactories;
+import de.metas.security.PermissionServiceFactory;
 import de.metas.tax.api.TaxCategoryId;
 import de.metas.uom.IUOMDAO;
 import de.metas.uom.UomId;
@@ -220,8 +221,8 @@ public class OrderCandidatesRestControllerImplTest
 		final DocTypeService docTypeService = new DocTypeService();
 		final JsonConverters jsonConverters = new JsonConverters(currencyService, docTypeService);
 
-		final PermissionService permissionService = Mockito.mock(PermissionService.class);
-		Mockito.doReturn(OrgId.ANY).when(permissionService).getDefaultOrgId();
+		final PermissionServiceFactory permissionServiceFactory = setupMockedPermissionServiceFactory();
+
 		// bpartnerRestController
 		final BPartnerCompositeRepository bpartnerCompositeRepository = new BPartnerCompositeRepository(new MockLogEntriesRepository());
 		final CurrencyRepository currencyRepository = new CurrencyRepository();
@@ -243,9 +244,19 @@ public class OrderCandidatesRestControllerImplTest
 				new OLCandRepository(),
 				bpartnerRestController,
 				new NoopPerformanceMonitoringService());
-		orderCandidatesRestControllerImpl.setPermissionServiceFactory(PermissionServiceFactories.singleton(permissionService));
+		orderCandidatesRestControllerImpl.setPermissionServiceFactory(permissionServiceFactory);
 
 		LogManager.setLoggerLevel(orderCandidatesRestControllerImpl.getClass(), Level.ALL);
+	}
+
+	private PermissionServiceFactory setupMockedPermissionServiceFactory()
+	{
+		final PermissionService permissionService = Mockito.mock(PermissionService.class);
+		Mockito.doReturn(OrgId.ANY).when(permissionService).getDefaultOrgId();
+		Mockito.doNothing().when(permissionService).assertCanCreateOrUpdate(Mockito.any());
+
+		final PermissionServiceFactory permissionServiceFactory = PermissionServiceFactories.singleton(permissionService);
+		return permissionServiceFactory;
 	}
 
 	// NOTE: Shall be called programmatically by each test

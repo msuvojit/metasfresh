@@ -30,6 +30,7 @@ import de.metas.pricing.PricingSystemId;
 import de.metas.rest_api.common.MetasfreshId;
 import de.metas.rest_api.exception.MissingPropertyException;
 import de.metas.rest_api.exception.MissingResourceException;
+import de.metas.rest_api.ordercandidates.impl.BPartnerEndpointAdapter.PreferredLocationType;
 import de.metas.rest_api.ordercandidates.impl.ProductMasterDataProvider.ProductInfo;
 import de.metas.rest_api.ordercandidates.request.JsonOLCandCreateRequest;
 import de.metas.rest_api.ordercandidates.response.JsonOLCand;
@@ -144,10 +145,10 @@ class JsonConverters
 				.externalLineId(request.getExternalLineId())
 				.externalHeaderId(request.getExternalHeaderId())
 				//
-				.bpartner(masterdataProvider.getCreateBPartnerInfo(request.getBpartner(), true/* billTo */, orgId))
-				.billBPartner(masterdataProvider.getCreateBPartnerInfo(request.getBillBPartner(), true/* billTo */, orgId))
-				.dropShipBPartner(masterdataProvider.getCreateBPartnerInfo(request.getDropShipBPartner(), false/* billTo */, orgId))
-				.handOverBPartner(masterdataProvider.getCreateBPartnerInfo(request.getHandOverBPartner(), false/* billTo */, orgId))
+				.bpartner(masterdataProvider.getCreateBPartnerInfo(request.getBpartner(), PreferredLocationType.BillTo, orgId))
+				.billBPartner(masterdataProvider.getCreateBPartnerInfo(request.getBillBPartner(), PreferredLocationType.BillTo, orgId))
+				.dropShipBPartner(masterdataProvider.getCreateBPartnerInfo(request.getDropShipBPartner(), PreferredLocationType.ShipTo, orgId))
+				.handOverBPartner(masterdataProvider.getCreateBPartnerInfo(request.getHandOverBPartner(), PreferredLocationType.ShipTo, orgId))
 				//
 				.poReference(request.getPoReference())
 				//

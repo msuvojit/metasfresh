@@ -42,6 +42,7 @@ import de.metas.rest_api.common.SyncAdvise;
 import de.metas.rest_api.exception.InvalidIdentifierException;
 import de.metas.rest_api.exception.MissingPropertyException;
 import de.metas.rest_api.exception.MissingResourceException;
+import de.metas.rest_api.ordercandidates.impl.BPartnerEndpointAdapter.PreferredLocationType;
 import de.metas.rest_api.ordercandidates.impl.ProductMasterDataProvider.ProductInfo;
 import de.metas.rest_api.ordercandidates.request.JSONPaymentRule;
 import de.metas.rest_api.ordercandidates.request.JsonOLCandCreateRequest;
@@ -180,7 +181,10 @@ final class MasterdataProvider
 		final OrgId orgId = OrgId.ofRepoId(orgRecord.getAD_Org_ID());
 		if (json.getBpartner() != null)
 		{
-			final BPartnerInfo bpartnerInfo = bpartnerEndpointAdapter.getCreateBPartnerInfo(json.getBpartner(), true/* billTo */, orgRecord.getValue());
+			final BPartnerInfo bpartnerInfo = bpartnerEndpointAdapter.getCreateBPartnerInfo(
+					json.getBpartner(),
+					PreferredLocationType.BillTo,
+					orgRecord.getValue());
 
 			final I_C_BPartner bpartnerRecord = Services.get(IBPartnerDAO.class).getById(bpartnerInfo.getBpartnerId());
 			bpartnerRecord.setAD_OrgBP_ID(orgRecord.getAD_Org_ID());
@@ -217,10 +221,10 @@ final class MasterdataProvider
 
 	public BPartnerInfo getCreateBPartnerInfo(
 			@Nullable final JsonRequestBPartnerLocationAndContact jsonBPartnerInfo,
-			final boolean billTo,
+			@NonNull final PreferredLocationType preferredLocationType,
 			@Nullable final OrgId orgId)
 	{
-		return bpartnerEndpointAdapter.getCreateBPartnerInfo(jsonBPartnerInfo, billTo, orgDAO.retrieveOrgValue(orgId));
+		return bpartnerEndpointAdapter.getCreateBPartnerInfo(jsonBPartnerInfo, preferredLocationType, orgDAO.retrieveOrgValue(orgId));
 	}
 
 	public JsonResponseBPartner getJsonBPartnerById(@NonNull final BPartnerId bpartnerId)

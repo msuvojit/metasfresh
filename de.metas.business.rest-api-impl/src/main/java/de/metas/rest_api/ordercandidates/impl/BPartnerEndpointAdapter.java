@@ -7,6 +7,7 @@ import java.util.Optional;
 
 import javax.annotation.Nullable;
 
+import org.adempiere.exceptions.AdempiereException;
 import org.springframework.http.ResponseEntity;
 
 import de.metas.bpartner.BPartnerContactId;
@@ -68,6 +69,11 @@ final class BPartnerEndpointAdapter
 {
 	private final BpartnerRestController bpartnerRestController;
 
+	public enum PreferredLocationType
+	{
+		BillTo, ShipTo;
+	}
+
 	public BPartnerEndpointAdapter(@NonNull final BpartnerRestController bpartnerRestController)
 	{
 		this.bpartnerRestController = bpartnerRestController;
@@ -75,7 +81,7 @@ final class BPartnerEndpointAdapter
 
 	public BPartnerInfo getCreateBPartnerInfo(
 			@Nullable final JsonRequestBPartnerLocationAndContact jsonBPartnerInfo,
-			final boolean billTo,
+			@NonNull final PreferredLocationType preferredLocationType,
 			@Nullable final String orgCode)
 	{
 		if (jsonBPartnerInfo == null)
@@ -89,7 +95,7 @@ final class BPartnerEndpointAdapter
 		final ResponseEntity<JsonResponseBPartnerCompositeUpsert> response = bpartnerRestController.createOrUpdateBPartner(jsonRequestBPartnerUpsert);
 
 		// repackage result
-		return asBPartnerInfo(response, billTo);
+		return asBPartnerInfo(response, preferredLocationType);
 	}
 
 	private JsonRequestBPartnerUpsert asJsonRequestBPartnerUpsert(
@@ -185,7 +191,7 @@ final class BPartnerEndpointAdapter
 
 	private BPartnerInfo asBPartnerInfo(
 			@NonNull final ResponseEntity<JsonResponseBPartnerCompositeUpsert> response,
-			final boolean billTo)
+			@NonNull final PreferredLocationType preferredLocationType)
 	{
 		// There can be just one response item, because we have just one request item;
 		final JsonResponseBPartnerCompositeUpsertItem jsonResponseBPartnerUpsert = CollectionUtils.singleElement(response.getBody().getResponseItems());
@@ -201,10 +207,8 @@ final class BPartnerEndpointAdapter
 		}
 		else
 		{
-			final Comparator<JsonResponseLocation> c = billTo ? createBillToLocationComparator() : createShipToLocationComparator();
-
 			final Optional<JsonResponseLocation> location = bpartnerRestController.retrieveBPartner(Integer.toString(bpartnerId.getRepoId())).getBody().getLocations().stream()
-					.sorted(c)
+					.sorted(createLocationComparator(preferredLocationType))
 					.findFirst();
 			if (location.isPresent())
 			{
@@ -220,20 +224,24 @@ final class BPartnerEndpointAdapter
 		return result.build();
 	}
 
-	private Comparator<JsonResponseLocation> createBillToLocationComparator()
+	private Comparator<JsonResponseLocation> createLocationComparator(@NonNull final PreferredLocationType preferredLocationType)
 	{
-		return Comparator
-				.<JsonResponseLocation, Boolean> comparing(l -> !l.isBillTo() /* billTo=true first */)
-				.thenComparing(
-						Comparator.comparing(l -> !l.isBillToDefault())/* billToDefault=true first */);
-	}
+		switch (preferredLocationType)
+		{
+			case BillTo:
+				return Comparator
+						.<JsonResponseLocation, Boolean> comparing(l -> !l.isBillTo() /* billTo=true first */)
+						.thenComparing(
+								Comparator.comparing(l -> !l.isBillToDefault())/* billToDefault=true first */);
+			case ShipTo:
+				return Comparator
+						.<JsonResponseLocation, Boolean> comparing(l -> !l.isShipTo() /* shipTo=true first */)
+						.thenComparing(
+								Comparator.comparing(l -> !l.isShipToDefault())/* shipToDefault=true first */);
+			default:
+				throw new AdempiereException("Unexpected preferredLocationType=" + preferredLocationType);
+		}
 
-	private Comparator<JsonResponseLocation> createShipToLocationComparator()
-	{
-		return Comparator
-				.<JsonResponseLocation, Boolean> comparing(l -> !l.isShipTo() /* shipTo=true first */)
-				.thenComparing(
-						Comparator.comparing(l -> !l.isShipToDefault())/* shipToDefault=true first */);
 	}
 
 	public JsonResponseBPartner getJsonBPartnerById(@NonNull final BPartnerId bpartnerId)
