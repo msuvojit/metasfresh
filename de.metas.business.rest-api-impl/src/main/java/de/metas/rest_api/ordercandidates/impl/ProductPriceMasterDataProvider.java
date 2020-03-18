@@ -93,7 +93,7 @@ final class ProductPriceMasterDataProvider
 		final TaxCategoryId taxCategoryId = TaxCategoryId.ofRepoIdOrNull(priceList.getDefault_TaxCategory_ID());
 		if (taxCategoryId == null)
 		{
-			throw new AdempiereException("@NotFound@ @Default_TaxCategory_ID@ of @M_PriceList_ID@")
+			throw new AdempiereException("@NotFound@ @Default_TaxCategory_ID@ of @M_PriceList_ID@ " + priceList.getName())
 					.setParameter("priceListId", priceListId);
 		}
 

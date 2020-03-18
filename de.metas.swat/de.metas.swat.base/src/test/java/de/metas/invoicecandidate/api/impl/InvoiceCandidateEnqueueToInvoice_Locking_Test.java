@@ -50,7 +50,9 @@ public class InvoiceCandidateEnqueueToInvoice_Locking_Test extends InvoiceCandid
 	public void registerService()
 	{
 		final BPartnerStatisticsUpdater asyncBPartnerStatisticsUpdater = new BPartnerStatisticsUpdater();
+
 		Services.registerService(IBPartnerStatisticsUpdater.class, asyncBPartnerStatisticsUpdater);
+
 		SpringContextHolder.registerJUnitBean(new MailService(new MailboxRepository(), new MailTemplateRepository()));
 		SpringContextHolder.registerJUnitBean(new InvoiceCandidateRecordService());
 		SpringContextHolder.registerJUnitBean(new MoneyService(new CurrencyRepository()));

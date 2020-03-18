@@ -44,6 +44,7 @@ import org.adempiere.service.ClientId;
 import org.adempiere.test.AdempiereTestHelper;
 import org.adempiere.util.lang.IAutoCloseable;
 import org.adempiere.warehouse.WarehouseId;
+import org.compiere.SpringContextHolder;
 import org.compiere.model.I_AD_Client;
 import org.compiere.model.I_AD_Org;
 import org.compiere.model.I_AD_OrgInfo;
@@ -85,6 +86,7 @@ import de.metas.currency.ICurrencyBL;
 import de.metas.currency.impl.PlainCurrencyBL;
 import de.metas.document.engine.DocStatus;
 import de.metas.document.engine.IDocument;
+import de.metas.greeting.GreetingRepository;
 import de.metas.inout.model.I_M_InOut;
 import de.metas.inout.model.I_M_InOutLine;
 import de.metas.interfaces.I_C_OrderLine;
@@ -110,6 +112,8 @@ import de.metas.invoicecandidate.spi.IAggregator;
 import de.metas.invoicecandidate.spi.impl.PlainInvoiceCandidateHandler;
 import de.metas.invoicecandidate.spi.impl.aggregator.standard.DefaultAggregator;
 import de.metas.location.CountryId;
+import de.metas.monitoring.adapter.NoopPerformanceMonitoringService;
+import de.metas.monitoring.adapter.PerformanceMonitoringService;
 import de.metas.notification.INotificationRepository;
 import de.metas.notification.impl.NotificationRepository;
 import de.metas.order.compensationGroup.GroupCompensationLineCreateRequestFactory;
@@ -285,6 +289,8 @@ public class AbstractICTestSupport extends AbstractTestSupport
 		Services.registerService(INotificationRepository.class, new NotificationRepository(attachmentEntryService));
 		Services.registerService(IBPartnerBL.class, new BPartnerBL(new UserRepository()));
 
+		SpringContextHolder.registerJUnitBean(PerformanceMonitoringService.class, new NoopPerformanceMonitoringService());
+		SpringContextHolder.registerJUnitBean(new GreetingRepository());
 	}
 
 	protected void config_InvoiceCand_HeaderAggregation()

@@ -157,7 +157,7 @@ public final class SpringContextHolder
 					+ "\n"
 					+ "Use org.compiere.SpringContextHolder.registerJUnitBean(T) to register your bean\n"
 					+ "E.g.\n"
-					+ "SpringContextHolder.registerJUnitBean(new GreetingRepository());\n"					;
+					+ "SpringContextHolder.registerJUnitBean(new GreetingRepository());\n";
 		}
 		else
 		{

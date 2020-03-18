@@ -309,10 +309,10 @@ final class BPartnerCompositeSaver
 
 	private void saveBPartnerContacts(
 			@NonNull final BPartnerId bpartnerId,
-			@NonNull final List<BPartnerContact> contacts)
+			@NonNull final List<BPartnerContact> bpartnerContacts)
 	{
 		final ArrayList<BPartnerContactId> savedBPartnerContactIds = new ArrayList<>();
-		for (final BPartnerContact bpartnerContact : contacts)
+		for (final BPartnerContact bpartnerContact : bpartnerContacts)
 		{
 			saveBPartnerContact(bpartnerId, bpartnerContact);
 			savedBPartnerContactIds.add(bpartnerContact.getId());

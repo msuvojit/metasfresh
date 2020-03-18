@@ -25,9 +25,7 @@ de.metas.rest_api.ordercandidates.impl.OrderCandidatesRestControllerImplTest.cre
           "customer": true,
           "changeInfo": {
             "createdMillis": 1584400036193,
-            "createdBy": 0,
-            "lastUpdatedMillis": 1584400036193,
-            "lastUpdatedBy": 0
+            "lastUpdatedMillis": 1584400036193
           }
         },
         "location": {
@@ -44,9 +42,7 @@ de.metas.rest_api.ordercandidates.impl.OrderCandidatesRestControllerImplTest.cre
           "billToDefault": false,
           "changeInfo": {
             "createdMillis": 1584400036193,
-            "createdBy": 0,
-            "lastUpdatedMillis": 1584400036193,
-            "lastUpdatedBy": 0
+            "lastUpdatedMillis": 1584400036193
           }
         }
       },
@@ -62,9 +58,7 @@ de.metas.rest_api.ordercandidates.impl.OrderCandidatesRestControllerImplTest.cre
           "customer": true,
           "changeInfo": {
             "createdMillis": 1584400036193,
-            "createdBy": 0,
-            "lastUpdatedMillis": 1584400036193,
-            "lastUpdatedBy": 0
+            "lastUpdatedMillis": 1584400036193
           }
         },
         "location": {
@@ -81,9 +75,7 @@ de.metas.rest_api.ordercandidates.impl.OrderCandidatesRestControllerImplTest.cre
           "billToDefault": false,
           "changeInfo": {
             "createdMillis": 1584400036193,
-            "createdBy": 0,
-            "lastUpdatedMillis": 1584400036193,
-            "lastUpdatedBy": 0
+            "lastUpdatedMillis": 1584400036193
           }
         }
       },
@@ -129,9 +121,7 @@ de.metas.rest_api.ordercandidates.impl.OrderCandidatesRestControllerImplTest.cre
           "customer": true,
           "changeInfo": {
             "createdMillis": 1584400036193,
-            "createdBy": 0,
-            "lastUpdatedMillis": 1584400036193,
-            "lastUpdatedBy": 0
+            "lastUpdatedMillis": 1584400036193
           }
         },
         "location": {
@@ -148,9 +138,7 @@ de.metas.rest_api.ordercandidates.impl.OrderCandidatesRestControllerImplTest.cre
           "billToDefault": false,
           "changeInfo": {
             "createdMillis": 1584400036193,
-            "createdBy": 0,
-            "lastUpdatedMillis": 1584400036193,
-            "lastUpdatedBy": 0
+            "lastUpdatedMillis": 1584400036193
           }
         }
       },
@@ -166,9 +154,7 @@ de.metas.rest_api.ordercandidates.impl.OrderCandidatesRestControllerImplTest.cre
           "customer": true,
           "changeInfo": {
             "createdMillis": 1584400036193,
-            "createdBy": 0,
-            "lastUpdatedMillis": 1584400036193,
-            "lastUpdatedBy": 0
+            "lastUpdatedMillis": 1584400036193
           }
         },
         "location": {
@@ -185,9 +171,7 @@ de.metas.rest_api.ordercandidates.impl.OrderCandidatesRestControllerImplTest.cre
           "billToDefault": false,
           "changeInfo": {
             "createdMillis": 1584400036193,
-            "createdBy": 0,
-            "lastUpdatedMillis": 1584400036193,
-            "lastUpdatedBy": 0
+            "lastUpdatedMillis": 1584400036193
           }
         }
       },
@@ -233,9 +217,7 @@ de.metas.rest_api.ordercandidates.impl.OrderCandidatesRestControllerImplTest.cre
           "customer": true,
           "changeInfo": {
             "createdMillis": 1584400036193,
-            "createdBy": 0,
-            "lastUpdatedMillis": 1584400036193,
-            "lastUpdatedBy": 0
+            "lastUpdatedMillis": 1584400036193
           }
         },
         "location": {
@@ -252,9 +234,7 @@ de.metas.rest_api.ordercandidates.impl.OrderCandidatesRestControllerImplTest.cre
           "billToDefault": false,
           "changeInfo": {
             "createdMillis": 1584400036193,
-            "createdBy": 0,
-            "lastUpdatedMillis": 1584400036193,
-            "lastUpdatedBy": 0
+            "lastUpdatedMillis": 1584400036193
           }
         }
       },
@@ -270,9 +250,7 @@ de.metas.rest_api.ordercandidates.impl.OrderCandidatesRestControllerImplTest.cre
           "customer": true,
           "changeInfo": {
             "createdMillis": 1584400036193,
-            "createdBy": 0,
-            "lastUpdatedMillis": 1584400036193,
-            "lastUpdatedBy": 0
+            "lastUpdatedMillis": 1584400036193
           }
         },
         "location": {
@@ -289,9 +267,7 @@ de.metas.rest_api.ordercandidates.impl.OrderCandidatesRestControllerImplTest.cre
           "billToDefault": false,
           "changeInfo": {
             "createdMillis": 1584400036193,
-            "createdBy": 0,
-            "lastUpdatedMillis": 1584400036193,
-            "lastUpdatedBy": 0
+            "lastUpdatedMillis": 1584400036193
           }
         }
       },
@@ -337,9 +313,7 @@ de.metas.rest_api.ordercandidates.impl.OrderCandidatesRestControllerImplTest.cre
           "customer": true,
           "changeInfo": {
             "createdMillis": 1584400036193,
-            "createdBy": 0,
-            "lastUpdatedMillis": 1584400036193,
-            "lastUpdatedBy": 0
+            "lastUpdatedMillis": 1584400036193
           }
         },
         "location": {
@@ -356,9 +330,7 @@ de.metas.rest_api.ordercandidates.impl.OrderCandidatesRestControllerImplTest.cre
           "billToDefault": false,
           "changeInfo": {
             "createdMillis": 1584400036193,
-            "createdBy": 0,
-            "lastUpdatedMillis": 1584400036193,
-            "lastUpdatedBy": 0
+            "lastUpdatedMillis": 1584400036193
           }
         }
       },
@@ -374,9 +346,7 @@ de.metas.rest_api.ordercandidates.impl.OrderCandidatesRestControllerImplTest.cre
           "customer": true,
           "changeInfo": {
             "createdMillis": 1584400036193,
-            "createdBy": 0,
-            "lastUpdatedMillis": 1584400036193,
-            "lastUpdatedBy": 0
+            "lastUpdatedMillis": 1584400036193
           }
         },
         "location": {
@@ -393,9 +363,7 @@ de.metas.rest_api.ordercandidates.impl.OrderCandidatesRestControllerImplTest.cre
           "billToDefault": false,
           "changeInfo": {
             "createdMillis": 1584400036193,
-            "createdBy": 0,
-            "lastUpdatedMillis": 1584400036193,
-            "lastUpdatedBy": 0
+            "lastUpdatedMillis": 1584400036193
           }
         }
       },
@@ -441,9 +409,7 @@ de.metas.rest_api.ordercandidates.impl.OrderCandidatesRestControllerImplTest.cre
           "customer": true,
           "changeInfo": {
             "createdMillis": 1584400036193,
-            "createdBy": 0,
-            "lastUpdatedMillis": 1584400036193,
-            "lastUpdatedBy": 0
+            "lastUpdatedMillis": 1584400036193
           }
         },
         "location": {
@@ -460,9 +426,7 @@ de.metas.rest_api.ordercandidates.impl.OrderCandidatesRestControllerImplTest.cre
           "billToDefault": false,
           "changeInfo": {
             "createdMillis": 1584400036193,
-            "createdBy": 0,
-            "lastUpdatedMillis": 1584400036193,
-            "lastUpdatedBy": 0
+            "lastUpdatedMillis": 1584400036193
           }
         }
       },
@@ -478,9 +442,7 @@ de.metas.rest_api.ordercandidates.impl.OrderCandidatesRestControllerImplTest.cre
           "customer": true,
           "changeInfo": {
             "createdMillis": 1584400036193,
-            "createdBy": 0,
-            "lastUpdatedMillis": 1584400036193,
-            "lastUpdatedBy": 0
+            "lastUpdatedMillis": 1584400036193
           }
         },
         "location": {
@@ -497,9 +459,7 @@ de.metas.rest_api.ordercandidates.impl.OrderCandidatesRestControllerImplTest.cre
           "billToDefault": false,
           "changeInfo": {
             "createdMillis": 1584400036193,
-            "createdBy": 0,
-            "lastUpdatedMillis": 1584400036193,
-            "lastUpdatedBy": 0
+            "lastUpdatedMillis": 1584400036193
           }
         }
       },
@@ -545,9 +505,7 @@ de.metas.rest_api.ordercandidates.impl.OrderCandidatesRestControllerImplTest.cre
           "customer": true,
           "changeInfo": {
             "createdMillis": 1584400036193,
-            "createdBy": 0,
-            "lastUpdatedMillis": 1584400036193,
-            "lastUpdatedBy": 0
+            "lastUpdatedMillis": 1584400036193
           }
         },
         "location": {
@@ -564,9 +522,7 @@ de.metas.rest_api.ordercandidates.impl.OrderCandidatesRestControllerImplTest.cre
           "billToDefault": false,
           "changeInfo": {
             "createdMillis": 1584400036193,
-            "createdBy": 0,
-            "lastUpdatedMillis": 1584400036193,
-            "lastUpdatedBy": 0
+            "lastUpdatedMillis": 1584400036193
           }
         }
       },
@@ -582,9 +538,7 @@ de.metas.rest_api.ordercandidates.impl.OrderCandidatesRestControllerImplTest.cre
           "customer": true,
           "changeInfo": {
             "createdMillis": 1584400036193,
-            "createdBy": 0,
-            "lastUpdatedMillis": 1584400036193,
-            "lastUpdatedBy": 0
+            "lastUpdatedMillis": 1584400036193
           }
         },
         "location": {
@@ -601,9 +555,7 @@ de.metas.rest_api.ordercandidates.impl.OrderCandidatesRestControllerImplTest.cre
           "billToDefault": false,
           "changeInfo": {
             "createdMillis": 1584400036193,
-            "createdBy": 0,
-            "lastUpdatedMillis": 1584400036193,
-            "lastUpdatedBy": 0
+            "lastUpdatedMillis": 1584400036193
           }
         }
       },
@@ -649,9 +601,7 @@ de.metas.rest_api.ordercandidates.impl.OrderCandidatesRestControllerImplTest.cre
           "customer": true,
           "changeInfo": {
             "createdMillis": 1584400036193,
-            "createdBy": 0,
-            "lastUpdatedMillis": 1584400036193,
-            "lastUpdatedBy": 0
+            "lastUpdatedMillis": 1584400036193
           }
         },
         "location": {
@@ -668,9 +618,7 @@ de.metas.rest_api.ordercandidates.impl.OrderCandidatesRestControllerImplTest.cre
           "billToDefault": false,
           "changeInfo": {
             "createdMillis": 1584400036193,
-            "createdBy": 0,
-            "lastUpdatedMillis": 1584400036193,
-            "lastUpdatedBy": 0
+            "lastUpdatedMillis": 1584400036193
           }
         }
       },
@@ -686,9 +634,7 @@ de.metas.rest_api.ordercandidates.impl.OrderCandidatesRestControllerImplTest.cre
           "customer": true,
           "changeInfo": {
             "createdMillis": 1584400036193,
-            "createdBy": 0,
-            "lastUpdatedMillis": 1584400036193,
-            "lastUpdatedBy": 0
+            "lastUpdatedMillis": 1584400036193
           }
         },
         "location": {
@@ -705,9 +651,7 @@ de.metas.rest_api.ordercandidates.impl.OrderCandidatesRestControllerImplTest.cre
           "billToDefault": false,
           "changeInfo": {
             "createdMillis": 1584400036193,
-            "createdBy": 0,
-            "lastUpdatedMillis": 1584400036193,
-            "lastUpdatedBy": 0
+            "lastUpdatedMillis": 1584400036193
           }
         }
       },
@@ -753,9 +697,7 @@ de.metas.rest_api.ordercandidates.impl.OrderCandidatesRestControllerImplTest.cre
           "customer": true,
           "changeInfo": {
             "createdMillis": 1584400036193,
-            "createdBy": 0,
-            "lastUpdatedMillis": 1584400036193,
-            "lastUpdatedBy": 0
+            "lastUpdatedMillis": 1584400036193
           }
         },
         "location": {
@@ -772,9 +714,7 @@ de.metas.rest_api.ordercandidates.impl.OrderCandidatesRestControllerImplTest.cre
           "billToDefault": false,
           "changeInfo": {
             "createdMillis": 1584400036193,
-            "createdBy": 0,
-            "lastUpdatedMillis": 1584400036193,
-            "lastUpdatedBy": 0
+            "lastUpdatedMillis": 1584400036193
           }
         }
       },
@@ -790,9 +730,7 @@ de.metas.rest_api.ordercandidates.impl.OrderCandidatesRestControllerImplTest.cre
           "customer": true,
           "changeInfo": {
             "createdMillis": 1584400036193,
-            "createdBy": 0,
-            "lastUpdatedMillis": 1584400036193,
-            "lastUpdatedBy": 0
+            "lastUpdatedMillis": 1584400036193
           }
         },
         "location": {
@@ -809,9 +747,7 @@ de.metas.rest_api.ordercandidates.impl.OrderCandidatesRestControllerImplTest.cre
           "billToDefault": false,
           "changeInfo": {
             "createdMillis": 1584400036193,
-            "createdBy": 0,
-            "lastUpdatedMillis": 1584400036193,
-            "lastUpdatedBy": 0
+            "lastUpdatedMillis": 1584400036193
           }
         }
       },
@@ -857,9 +793,7 @@ de.metas.rest_api.ordercandidates.impl.OrderCandidatesRestControllerImplTest.cre
           "customer": true,
           "changeInfo": {
             "createdMillis": 1584400036193,
-            "createdBy": 0,
-            "lastUpdatedMillis": 1584400036193,
-            "lastUpdatedBy": 0
+            "lastUpdatedMillis": 1584400036193
           }
         },
         "location": {
@@ -876,9 +810,7 @@ de.metas.rest_api.ordercandidates.impl.OrderCandidatesRestControllerImplTest.cre
           "billToDefault": false,
           "changeInfo": {
             "createdMillis": 1584400036193,
-            "createdBy": 0,
-            "lastUpdatedMillis": 1584400036193,
-            "lastUpdatedBy": 0
+            "lastUpdatedMillis": 1584400036193
           }
         }
       },
@@ -894,9 +826,7 @@ de.metas.rest_api.ordercandidates.impl.OrderCandidatesRestControllerImplTest.cre
           "customer": true,
           "changeInfo": {
             "createdMillis": 1584400036193,
-            "createdBy": 0,
-            "lastUpdatedMillis": 1584400036193,
-            "lastUpdatedBy": 0
+            "lastUpdatedMillis": 1584400036193
           }
         },
         "location": {
@@ -913,9 +843,7 @@ de.metas.rest_api.ordercandidates.impl.OrderCandidatesRestControllerImplTest.cre
           "billToDefault": false,
           "changeInfo": {
             "createdMillis": 1584400036193,
-            "createdBy": 0,
-            "lastUpdatedMillis": 1584400036193,
-            "lastUpdatedBy": 0
+            "lastUpdatedMillis": 1584400036193
           }
         }
       },
@@ -961,9 +889,7 @@ de.metas.rest_api.ordercandidates.impl.OrderCandidatesRestControllerImplTest.cre
           "customer": true,
           "changeInfo": {
             "createdMillis": 1584400036193,
-            "createdBy": 0,
-            "lastUpdatedMillis": 1584400036193,
-            "lastUpdatedBy": 0
+            "lastUpdatedMillis": 1584400036193
           }
         },
         "location": {
@@ -980,9 +906,7 @@ de.metas.rest_api.ordercandidates.impl.OrderCandidatesRestControllerImplTest.cre
           "billToDefault": false,
           "changeInfo": {
             "createdMillis": 1584400036193,
-            "createdBy": 0,
-            "lastUpdatedMillis": 1584400036193,
-            "lastUpdatedBy": 0
+            "lastUpdatedMillis": 1584400036193
           }
         }
       },
@@ -998,9 +922,7 @@ de.metas.rest_api.ordercandidates.impl.OrderCandidatesRestControllerImplTest.cre
           "customer": true,
           "changeInfo": {
             "createdMillis": 1584400036193,
-            "createdBy": 0,
-            "lastUpdatedMillis": 1584400036193,
-            "lastUpdatedBy": 0
+            "lastUpdatedMillis": 1584400036193
           }
         },
         "location": {
@@ -1017,9 +939,7 @@ de.metas.rest_api.ordercandidates.impl.OrderCandidatesRestControllerImplTest.cre
           "billToDefault": false,
           "changeInfo": {
             "createdMillis": 1584400036193,
-            "createdBy": 0,
-            "lastUpdatedMillis": 1584400036193,
-            "lastUpdatedBy": 0
+            "lastUpdatedMillis": 1584400036193
           }
         }
       },
@@ -1065,9 +985,7 @@ de.metas.rest_api.ordercandidates.impl.OrderCandidatesRestControllerImplTest.cre
           "customer": true,
           "changeInfo": {
             "createdMillis": 1584400036193,
-            "createdBy": 0,
-            "lastUpdatedMillis": 1584400036193,
-            "lastUpdatedBy": 0
+            "lastUpdatedMillis": 1584400036193
           }
         },
         "location": {
@@ -1084,9 +1002,7 @@ de.metas.rest_api.ordercandidates.impl.OrderCandidatesRestControllerImplTest.cre
           "billToDefault": false,
           "changeInfo": {
             "createdMillis": 1584400036193,
-            "createdBy": 0,
-            "lastUpdatedMillis": 1584400036193,
-            "lastUpdatedBy": 0
+            "lastUpdatedMillis": 1584400036193
           }
         }
       },
@@ -1102,9 +1018,7 @@ de.metas.rest_api.ordercandidates.impl.OrderCandidatesRestControllerImplTest.cre
           "customer": true,
           "changeInfo": {
             "createdMillis": 1584400036193,
-            "createdBy": 0,
-            "lastUpdatedMillis": 1584400036193,
-            "lastUpdatedBy": 0
+            "lastUpdatedMillis": 1584400036193
           }
         },
         "location": {
@@ -1121,9 +1035,7 @@ de.metas.rest_api.ordercandidates.impl.OrderCandidatesRestControllerImplTest.cre
           "billToDefault": false,
           "changeInfo": {
             "createdMillis": 1584400036193,
-            "createdBy": 0,
-            "lastUpdatedMillis": 1584400036193,
-            "lastUpdatedBy": 0
+            "lastUpdatedMillis": 1584400036193
           }
         }
       },
@@ -1169,9 +1081,7 @@ de.metas.rest_api.ordercandidates.impl.OrderCandidatesRestControllerImplTest.cre
           "customer": true,
           "changeInfo": {
             "createdMillis": 1584400036193,
-            "createdBy": 0,
-            "lastUpdatedMillis": 1584400036193,
-            "lastUpdatedBy": 0
+            "lastUpdatedMillis": 1584400036193
           }
         },
         "location": {
@@ -1188,9 +1098,7 @@ de.metas.rest_api.ordercandidates.impl.OrderCandidatesRestControllerImplTest.cre
           "billToDefault": false,
           "changeInfo": {
             "createdMillis": 1584400036193,
-            "createdBy": 0,
-            "lastUpdatedMillis": 1584400036193,
-            "lastUpdatedBy": 0
+            "lastUpdatedMillis": 1584400036193
           }
         }
       },
@@ -1206,9 +1114,7 @@ de.metas.rest_api.ordercandidates.impl.OrderCandidatesRestControllerImplTest.cre
           "customer": true,
           "changeInfo": {
             "createdMillis": 1584400036193,
-            "createdBy": 0,
-            "lastUpdatedMillis": 1584400036193,
-            "lastUpdatedBy": 0
+            "lastUpdatedMillis": 1584400036193
           }
         },
         "location": {
@@ -1225,9 +1131,7 @@ de.metas.rest_api.ordercandidates.impl.OrderCandidatesRestControllerImplTest.cre
           "billToDefault": false,
           "changeInfo": {
             "createdMillis": 1584400036193,
-            "createdBy": 0,
-            "lastUpdatedMillis": 1584400036193,
-            "lastUpdatedBy": 0
+            "lastUpdatedMillis": 1584400036193
           }
         }
       },
@@ -1273,9 +1177,7 @@ de.metas.rest_api.ordercandidates.impl.OrderCandidatesRestControllerImplTest.cre
           "customer": true,
           "changeInfo": {
             "createdMillis": 1584400036193,
-            "createdBy": 0,
-            "lastUpdatedMillis": 1584400036193,
-            "lastUpdatedBy": 0
+            "lastUpdatedMillis": 1584400036193
           }
         },
         "location": {
@@ -1292,9 +1194,7 @@ de.metas.rest_api.ordercandidates.impl.OrderCandidatesRestControllerImplTest.cre
           "billToDefault": false,
           "changeInfo": {
             "createdMillis": 1584400036193,
-            "createdBy": 0,
-            "lastUpdatedMillis": 1584400036193,
-            "lastUpdatedBy": 0
+            "lastUpdatedMillis": 1584400036193
           }
         }
       },
@@ -1310,9 +1210,7 @@ de.metas.rest_api.ordercandidates.impl.OrderCandidatesRestControllerImplTest.cre
           "customer": true,
           "changeInfo": {
             "createdMillis": 1584400036193,
-            "createdBy": 0,
-            "lastUpdatedMillis": 1584400036193,
-            "lastUpdatedBy": 0
+            "lastUpdatedMillis": 1584400036193
           }
         },
         "location": {
@@ -1329,9 +1227,7 @@ de.metas.rest_api.ordercandidates.impl.OrderCandidatesRestControllerImplTest.cre
           "billToDefault": false,
           "changeInfo": {
             "createdMillis": 1584400036193,
-            "createdBy": 0,
-            "lastUpdatedMillis": 1584400036193,
-            "lastUpdatedBy": 0
+            "lastUpdatedMillis": 1584400036193
           }
         }
       },
@@ -1377,9 +1273,7 @@ de.metas.rest_api.ordercandidates.impl.OrderCandidatesRestControllerImplTest.cre
           "customer": true,
           "changeInfo": {
             "createdMillis": 1584400036193,
-            "createdBy": 0,
-            "lastUpdatedMillis": 1584400036193,
-            "lastUpdatedBy": 0
+            "lastUpdatedMillis": 1584400036193
           }
         },
         "location": {
@@ -1396,9 +1290,7 @@ de.metas.rest_api.ordercandidates.impl.OrderCandidatesRestControllerImplTest.cre
           "billToDefault": false,
           "changeInfo": {
             "createdMillis": 1584400036193,
-            "createdBy": 0,
-            "lastUpdatedMillis": 1584400036193,
-            "lastUpdatedBy": 0
+            "lastUpdatedMillis": 1584400036193
           }
         }
       },
@@ -1414,9 +1306,7 @@ de.metas.rest_api.ordercandidates.impl.OrderCandidatesRestControllerImplTest.cre
           "customer": true,
           "changeInfo": {
             "createdMillis": 1584400036193,
-            "createdBy": 0,
-            "lastUpdatedMillis": 1584400036193,
-            "lastUpdatedBy": 0
+            "lastUpdatedMillis": 1584400036193
           }
         },
         "location": {
@@ -1433,9 +1323,7 @@ de.metas.rest_api.ordercandidates.impl.OrderCandidatesRestControllerImplTest.cre
           "billToDefault": false,
           "changeInfo": {
             "createdMillis": 1584400036193,
-            "createdBy": 0,
-            "lastUpdatedMillis": 1584400036193,
-            "lastUpdatedBy": 0
+            "lastUpdatedMillis": 1584400036193
           }
         }
       },
@@ -1481,9 +1369,7 @@ de.metas.rest_api.ordercandidates.impl.OrderCandidatesRestControllerImplTest.cre
           "customer": true,
           "changeInfo": {
             "createdMillis": 1584400036193,
-            "createdBy": 0,
-            "lastUpdatedMillis": 1584400036193,
-            "lastUpdatedBy": 0
+            "lastUpdatedMillis": 1584400036193
           }
         },
         "location": {
@@ -1500,9 +1386,7 @@ de.metas.rest_api.ordercandidates.impl.OrderCandidatesRestControllerImplTest.cre
           "billToDefault": false,
           "changeInfo": {
             "createdMillis": 1584400036193,
-            "createdBy": 0,
-            "lastUpdatedMillis": 1584400036193,
-            "lastUpdatedBy": 0
+            "lastUpdatedMillis": 1584400036193
           }
         }
       },
@@ -1518,9 +1402,7 @@ de.metas.rest_api.ordercandidates.impl.OrderCandidatesRestControllerImplTest.cre
           "customer": true,
           "changeInfo": {
             "createdMillis": 1584400036193,
-            "createdBy": 0,
-            "lastUpdatedMillis": 1584400036193,
-            "lastUpdatedBy": 0
+            "lastUpdatedMillis": 1584400036193
           }
         },
         "location": {
@@ -1537,9 +1419,7 @@ de.metas.rest_api.ordercandidates.impl.OrderCandidatesRestControllerImplTest.cre
           "billToDefault": false,
           "changeInfo": {
             "createdMillis": 1584400036193,
-            "createdBy": 0,
-            "lastUpdatedMillis": 1584400036193,
-            "lastUpdatedBy": 0
+            "lastUpdatedMillis": 1584400036193
           }
         }
       },
@@ -1585,9 +1465,7 @@ de.metas.rest_api.ordercandidates.impl.OrderCandidatesRestControllerImplTest.cre
           "customer": true,
           "changeInfo": {
             "createdMillis": 1584400036193,
-            "createdBy": 0,
-            "lastUpdatedMillis": 1584400036193,
-            "lastUpdatedBy": 0
+            "lastUpdatedMillis": 1584400036193
           }
         },
         "location": {
@@ -1604,9 +1482,7 @@ de.metas.rest_api.ordercandidates.impl.OrderCandidatesRestControllerImplTest.cre
           "billToDefault": false,
           "changeInfo": {
             "createdMillis": 1584400036193,
-            "createdBy": 0,
-            "lastUpdatedMillis": 1584400036193,
-            "lastUpdatedBy": 0
+            "lastUpdatedMillis": 1584400036193
           }
         }
       },
@@ -1622,9 +1498,7 @@ de.metas.rest_api.ordercandidates.impl.OrderCandidatesRestControllerImplTest.cre
           "customer": true,
           "changeInfo": {
             "createdMillis": 1584400036193,
-            "createdBy": 0,
-            "lastUpdatedMillis": 1584400036193,
-            "lastUpdatedBy": 0
+            "lastUpdatedMillis": 1584400036193
           }
         },
         "location": {
@@ -1641,9 +1515,7 @@ de.metas.rest_api.ordercandidates.impl.OrderCandidatesRestControllerImplTest.cre
           "billToDefault": false,
           "changeInfo": {
             "createdMillis": 1584400036193,
-            "createdBy": 0,
-            "lastUpdatedMillis": 1584400036193,
-            "lastUpdatedBy": 0
+            "lastUpdatedMillis": 1584400036193
           }
         }
       },
@@ -1689,9 +1561,7 @@ de.metas.rest_api.ordercandidates.impl.OrderCandidatesRestControllerImplTest.cre
           "customer": true,
           "changeInfo": {
             "createdMillis": 1584400036193,
-            "createdBy": 0,
-            "lastUpdatedMillis": 1584400036193,
-            "lastUpdatedBy": 0
+            "lastUpdatedMillis": 1584400036193
           }
         },
         "location": {
@@ -1708,9 +1578,7 @@ de.metas.rest_api.ordercandidates.impl.OrderCandidatesRestControllerImplTest.cre
           "billToDefault": false,
           "changeInfo": {
             "createdMillis": 1584400036193,
-            "createdBy": 0,
-            "lastUpdatedMillis": 1584400036193,
-            "lastUpdatedBy": 0
+            "lastUpdatedMillis": 1584400036193
           }
         }
       },
@@ -1726,9 +1594,7 @@ de.metas.rest_api.ordercandidates.impl.OrderCandidatesRestControllerImplTest.cre
           "customer": true,
           "changeInfo": {
             "createdMillis": 1584400036193,
-            "createdBy": 0,
-            "lastUpdatedMillis": 1584400036193,
-            "lastUpdatedBy": 0
+            "lastUpdatedMillis": 1584400036193
           }
         },
         "location": {
@@ -1745,9 +1611,7 @@ de.metas.rest_api.ordercandidates.impl.OrderCandidatesRestControllerImplTest.cre
           "billToDefault": false,
           "changeInfo": {
             "createdMillis": 1584400036193,
-            "createdBy": 0,
-            "lastUpdatedMillis": 1584400036193,
-            "lastUpdatedBy": 0
+            "lastUpdatedMillis": 1584400036193
           }
         }
       },
@@ -1793,9 +1657,7 @@ de.metas.rest_api.ordercandidates.impl.OrderCandidatesRestControllerImplTest.cre
           "customer": true,
           "changeInfo": {
             "createdMillis": 1584400036193,
-            "createdBy": 0,
-            "lastUpdatedMillis": 1584400036193,
-            "lastUpdatedBy": 0
+            "lastUpdatedMillis": 1584400036193
           }
         },
         "location": {
@@ -1812,9 +1674,7 @@ de.metas.rest_api.ordercandidates.impl.OrderCandidatesRestControllerImplTest.cre
           "billToDefault": false,
           "changeInfo": {
             "createdMillis": 1584400036193,
-            "createdBy": 0,
-            "lastUpdatedMillis": 1584400036193,
-            "lastUpdatedBy": 0
+            "lastUpdatedMillis": 1584400036193
           }
         }
       },
@@ -1830,9 +1690,7 @@ de.metas.rest_api.ordercandidates.impl.OrderCandidatesRestControllerImplTest.cre
           "customer": true,
           "changeInfo": {
             "createdMillis": 1584400036193,
-            "createdBy": 0,
-            "lastUpdatedMillis": 1584400036193,
-            "lastUpdatedBy": 0
+            "lastUpdatedMillis": 1584400036193
           }
         },
         "location": {
@@ -1849,9 +1707,7 @@ de.metas.rest_api.ordercandidates.impl.OrderCandidatesRestControllerImplTest.cre
           "billToDefault": false,
           "changeInfo": {
             "createdMillis": 1584400036193,
-            "createdBy": 0,
-            "lastUpdatedMillis": 1584400036193,
-            "lastUpdatedBy": 0
+            "lastUpdatedMillis": 1584400036193
           }
         }
       },
@@ -1897,9 +1753,7 @@ de.metas.rest_api.ordercandidates.impl.OrderCandidatesRestControllerImplTest.cre
           "customer": true,
           "changeInfo": {
             "createdMillis": 1584400036193,
-            "createdBy": 0,
-            "lastUpdatedMillis": 1584400036193,
-            "lastUpdatedBy": 0
+            "lastUpdatedMillis": 1584400036193
           }
         },
         "location": {
@@ -1916,9 +1770,7 @@ de.metas.rest_api.ordercandidates.impl.OrderCandidatesRestControllerImplTest.cre
           "billToDefault": false,
           "changeInfo": {
             "createdMillis": 1584400036193,
-            "createdBy": 0,
-            "lastUpdatedMillis": 1584400036193,
-            "lastUpdatedBy": 0
+            "lastUpdatedMillis": 1584400036193
           }
         }
       },
@@ -1934,9 +1786,7 @@ de.metas.rest_api.ordercandidates.impl.OrderCandidatesRestControllerImplTest.cre
           "customer": true,
           "changeInfo": {
             "createdMillis": 1584400036193,
-            "createdBy": 0,
-            "lastUpdatedMillis": 1584400036193,
-            "lastUpdatedBy": 0
+            "lastUpdatedMillis": 1584400036193
           }
         },
         "location": {
@@ -1953,9 +1803,7 @@ de.metas.rest_api.ordercandidates.impl.OrderCandidatesRestControllerImplTest.cre
           "billToDefault": false,
           "changeInfo": {
             "createdMillis": 1584400036193,
-            "createdBy": 0,
-            "lastUpdatedMillis": 1584400036193,
-            "lastUpdatedBy": 0
+            "lastUpdatedMillis": 1584400036193
           }
         }
       },
@@ -2001,9 +1849,7 @@ de.metas.rest_api.ordercandidates.impl.OrderCandidatesRestControllerImplTest.cre
           "customer": true,
           "changeInfo": {
             "createdMillis": 1584400036193,
-            "createdBy": 0,
-            "lastUpdatedMillis": 1584400036193,
-            "lastUpdatedBy": 0
+            "lastUpdatedMillis": 1584400036193
           }
         },
         "location": {
@@ -2020,9 +1866,7 @@ de.metas.rest_api.ordercandidates.impl.OrderCandidatesRestControllerImplTest.cre
           "billToDefault": false,
           "changeInfo": {
             "createdMillis": 1584400036193,
-            "createdBy": 0,
-            "lastUpdatedMillis": 1584400036193,
-            "lastUpdatedBy": 0
+            "lastUpdatedMillis": 1584400036193
           }
         }
       },
@@ -2038,9 +1882,7 @@ de.metas.rest_api.ordercandidates.impl.OrderCandidatesRestControllerImplTest.cre
           "customer": true,
           "changeInfo": {
             "createdMillis": 1584400036193,
-            "createdBy": 0,
-            "lastUpdatedMillis": 1584400036193,
-            "lastUpdatedBy": 0
+            "lastUpdatedMillis": 1584400036193
           }
         },
         "location": {
@@ -2057,9 +1899,7 @@ de.metas.rest_api.ordercandidates.impl.OrderCandidatesRestControllerImplTest.cre
           "billToDefault": false,
           "changeInfo": {
             "createdMillis": 1584400036193,
-            "createdBy": 0,
-            "lastUpdatedMillis": 1584400036193,
-            "lastUpdatedBy": 0
+            "lastUpdatedMillis": 1584400036193
           }
         }
       },
@@ -2105,9 +1945,7 @@ de.metas.rest_api.ordercandidates.impl.OrderCandidatesRestControllerImplTest.cre
           "customer": true,
           "changeInfo": {
             "createdMillis": 1584400036193,
-            "createdBy": 0,
-            "lastUpdatedMillis": 1584400036193,
-            "lastUpdatedBy": 0
+            "lastUpdatedMillis": 1584400036193
           }
         },
         "location": {
@@ -2124,9 +1962,7 @@ de.metas.rest_api.ordercandidates.impl.OrderCandidatesRestControllerImplTest.cre
           "billToDefault": false,
           "changeInfo": {
             "createdMillis": 1584400036193,
-            "createdBy": 0,
-            "lastUpdatedMillis": 1584400036193,
-            "lastUpdatedBy": 0
+            "lastUpdatedMillis": 1584400036193
           }
         }
       },
@@ -2142,9 +1978,7 @@ de.metas.rest_api.ordercandidates.impl.OrderCandidatesRestControllerImplTest.cre
           "customer": true,
           "changeInfo": {
             "createdMillis": 1584400036193,
-            "createdBy": 0,
-            "lastUpdatedMillis": 1584400036193,
-            "lastUpdatedBy": 0
+            "lastUpdatedMillis": 1584400036193
           }
         },
         "location": {
@@ -2161,9 +1995,7 @@ de.metas.rest_api.ordercandidates.impl.OrderCandidatesRestControllerImplTest.cre
           "billToDefault": false,
           "changeInfo": {
             "createdMillis": 1584400036193,
-            "createdBy": 0,
-            "lastUpdatedMillis": 1584400036193,
-            "lastUpdatedBy": 0
+            "lastUpdatedMillis": 1584400036193
           }
         }
       },
@@ -2211,9 +2043,7 @@ de.metas.rest_api.ordercandidates.impl.OrderCandidatesRestControllerImplTest.tes
         "customer": true,
         "changeInfo": {
           "createdMillis": 1584400036193,
-          "createdBy": 0,
-          "lastUpdatedMillis": 1584400036193,
-          "lastUpdatedBy": 0
+          "lastUpdatedMillis": 1584400036193
         }
       },
       "location": {
@@ -2227,9 +2057,7 @@ de.metas.rest_api.ordercandidates.impl.OrderCandidatesRestControllerImplTest.tes
         "billToDefault": false,
         "changeInfo": {
           "createdMillis": 1584400036193,
-          "createdBy": 0,
-          "lastUpdatedMillis": 1584400036193,
-          "lastUpdatedBy": 0
+          "lastUpdatedMillis": 1584400036193
         }
       }
     },
@@ -2244,9 +2072,7 @@ de.metas.rest_api.ordercandidates.impl.OrderCandidatesRestControllerImplTest.tes
         "customer": true,
         "changeInfo": {
           "createdMillis": 1584400036193,
-          "createdBy": 0,
-          "lastUpdatedMillis": 1584400036193,
-          "lastUpdatedBy": 0
+          "lastUpdatedMillis": 1584400036193
         }
       },
       "location": {
@@ -2260,9 +2086,7 @@ de.metas.rest_api.ordercandidates.impl.OrderCandidatesRestControllerImplTest.tes
         "billToDefault": false,
         "changeInfo": {
           "createdMillis": 1584400036193,
-          "createdBy": 0,
-          "lastUpdatedMillis": 1584400036193,
-          "lastUpdatedBy": 0
+          "lastUpdatedMillis": 1584400036193
         }
       }
     },
@@ -2280,7 +2104,6 @@ de.metas.rest_api.ordercandidates.impl.OrderCandidatesRestControllerImplTest.tes
     },
     "flatrateConditionsId": 0,
     "productId": 100021,
-    "productDescription": "productName",
     "qty": 66,
     "uomId": 100003,
     "qtyItemCapacity": 0,
@@ -2316,9 +2139,7 @@ de.metas.rest_api.ordercandidates.impl.OrderCandidatesRestControllerImplTest.tes
         "customer": true,
         "changeInfo": {
           "createdMillis": 1584400036193,
-          "createdBy": 0,
-          "lastUpdatedMillis": 1584400036193,
-          "lastUpdatedBy": 0
+          "lastUpdatedMillis": 1584400036193
         }
       },
       "location": {
@@ -2332,9 +2153,7 @@ de.metas.rest_api.ordercandidates.impl.OrderCandidatesRestControllerImplTest.tes
         "billToDefault": false,
         "changeInfo": {
           "createdMillis": 1584400036193,
-          "createdBy": 0,
-          "lastUpdatedMillis": 1584400036193,
-          "lastUpdatedBy": 0
+          "lastUpdatedMillis": 1584400036193
         }
       }
     },
@@ -2349,9 +2168,7 @@ de.metas.rest_api.ordercandidates.impl.OrderCandidatesRestControllerImplTest.tes
         "customer": true,
         "changeInfo": {
           "createdMillis": 1584400036193,
-          "createdBy": 0,
-          "lastUpdatedMillis": 1584400036193,
-          "lastUpdatedBy": 0
+          "lastUpdatedMillis": 1584400036193
         }
       },
       "location": {
@@ -2365,9 +2182,7 @@ de.metas.rest_api.ordercandidates.impl.OrderCandidatesRestControllerImplTest.tes
         "billToDefault": false,
         "changeInfo": {
           "createdMillis": 1584400036193,
-          "createdBy": 0,
-          "lastUpdatedMillis": 1584400036193,
-          "lastUpdatedBy": 0
+          "lastUpdatedMillis": 1584400036193
         }
       }
     },
@@ -2385,7 +2200,6 @@ de.metas.rest_api.ordercandidates.impl.OrderCandidatesRestControllerImplTest.tes
     },
     "flatrateConditionsId": 0,
     "productId": 100021,
-    "productDescription": "productName",
     "qty": 66,
     "uomId": 100003,
     "qtyItemCapacity": 0,
@@ -2421,9 +2235,7 @@ de.metas.rest_api.ordercandidates.impl.OrderCandidatesRestControllerImplTest.tes
         "customer": true,
         "changeInfo": {
           "createdMillis": 1584400036193,
-          "createdBy": 0,
-          "lastUpdatedMillis": 1584400036193,
-          "lastUpdatedBy": 0
+          "lastUpdatedMillis": 1584400036193
         }
       },
       "location": {
@@ -2436,9 +2248,7 @@ de.metas.rest_api.ordercandidates.impl.OrderCandidatesRestControllerImplTest.tes
         "billToDefault": false,
         "changeInfo": {
           "createdMillis": 1584400036193,
-          "createdBy": 0,
-          "lastUpdatedMillis": 1584400036193,
-          "lastUpdatedBy": 0
+          "lastUpdatedMillis": 1584400036193
         }
       }
     },
@@ -2453,9 +2263,7 @@ de.metas.rest_api.ordercandidates.impl.OrderCandidatesRestControllerImplTest.tes
         "customer": true,
         "changeInfo": {
           "createdMillis": 1584400036193,
-          "createdBy": 0,
-          "lastUpdatedMillis": 1584400036193,
-          "lastUpdatedBy": 0
+          "lastUpdatedMillis": 1584400036193
         }
       },
       "location": {
@@ -2468,9 +2276,7 @@ de.metas.rest_api.ordercandidates.impl.OrderCandidatesRestControllerImplTest.tes
         "billToDefault": false,
         "changeInfo": {
           "createdMillis": 1584400036193,
-          "createdBy": 0,
-          "lastUpdatedMillis": 1584400036193,
-          "lastUpdatedBy": 0
+          "lastUpdatedMillis": 1584400036193
         }
       }
     },
@@ -2485,9 +2291,7 @@ de.metas.rest_api.ordercandidates.impl.OrderCandidatesRestControllerImplTest.tes
         "customer": true,
         "changeInfo": {
           "createdMillis": 1584400036193,
-          "createdBy": 0,
-          "lastUpdatedMillis": 1584400036193,
-          "lastUpdatedBy": 0
+          "lastUpdatedMillis": 1584400036193
         }
       },
       "location": {
@@ -2501,9 +2305,7 @@ de.metas.rest_api.ordercandidates.impl.OrderCandidatesRestControllerImplTest.tes
         "billToDefault": false,
         "changeInfo": {
           "createdMillis": 1584400036193,
-          "createdBy": 0,
-          "lastUpdatedMillis": 1584400036193,
-          "lastUpdatedBy": 0
+          "lastUpdatedMillis": 1584400036193
         }
       }
     },
@@ -2521,7 +2323,6 @@ de.metas.rest_api.ordercandidates.impl.OrderCandidatesRestControllerImplTest.tes
     },
     "flatrateConditionsId": 0,
     "productId": 100030,
-    "productDescription": "productName",
     "qty": 66,
     "uomId": 100003,
     "qtyItemCapacity": 0,
@@ -2557,9 +2358,7 @@ de.metas.rest_api.ordercandidates.impl.OrderCandidatesRestControllerImplTest.tes
         "customer": true,
         "changeInfo": {
           "createdMillis": 1584400036193,
-          "createdBy": 0,
-          "lastUpdatedMillis": 1584400036193,
-          "lastUpdatedBy": 0
+          "lastUpdatedMillis": 1584400036193
         }
       },
       "location": {
@@ -2572,9 +2371,7 @@ de.metas.rest_api.ordercandidates.impl.OrderCandidatesRestControllerImplTest.tes
         "billToDefault": false,
         "changeInfo": {
           "createdMillis": 1584400036193,
-          "createdBy": 0,
-          "lastUpdatedMillis": 1584400036193,
-          "lastUpdatedBy": 0
+          "lastUpdatedMillis": 1584400036193
         }
       }
     },
@@ -2589,9 +2386,7 @@ de.metas.rest_api.ordercandidates.impl.OrderCandidatesRestControllerImplTest.tes
         "customer": true,
         "changeInfo": {
           "createdMillis": 1584400036193,
-          "createdBy": 0,
-          "lastUpdatedMillis": 1584400036193,
-          "lastUpdatedBy": 0
+          "lastUpdatedMillis": 1584400036193
         }
       },
       "location": {
@@ -2604,9 +2399,7 @@ de.metas.rest_api.ordercandidates.impl.OrderCandidatesRestControllerImplTest.tes
         "billToDefault": false,
         "changeInfo": {
           "createdMillis": 1584400036193,
-          "createdBy": 0,
-          "lastUpdatedMillis": 1584400036193,
-          "lastUpdatedBy": 0
+          "lastUpdatedMillis": 1584400036193
         }
       }
     },
@@ -2621,9 +2414,7 @@ de.metas.rest_api.ordercandidates.impl.OrderCandidatesRestControllerImplTest.tes
         "customer": true,
         "changeInfo": {
           "createdMillis": 1584400036193,
-          "createdBy": 0,
-          "lastUpdatedMillis": 1584400036193,
-          "lastUpdatedBy": 0
+          "lastUpdatedMillis": 1584400036193
         }
       },
       "location": {
@@ -2637,9 +2428,7 @@ de.metas.rest_api.ordercandidates.impl.OrderCandidatesRestControllerImplTest.tes
         "billToDefault": false,
         "changeInfo": {
           "createdMillis": 1584400036193,
-          "createdBy": 0,
-          "lastUpdatedMillis": 1584400036193,
-          "lastUpdatedBy": 0
+          "lastUpdatedMillis": 1584400036193
         }
       }
     },
@@ -2657,7 +2446,6 @@ de.metas.rest_api.ordercandidates.impl.OrderCandidatesRestControllerImplTest.tes
     },
     "flatrateConditionsId": 0,
     "productId": 100030,
-    "productDescription": "productName",
     "qty": 66,
     "uomId": 100003,
     "qtyItemCapacity": 0,
@@ -2694,9 +2482,7 @@ de.metas.rest_api.ordercandidates.impl.OrderCandidatesRestControllerImplTest.tes
         "customer": true,
         "changeInfo": {
           "createdMillis": 1584400036193,
-          "createdBy": 0,
-          "lastUpdatedMillis": 1584400036193,
-          "lastUpdatedBy": 0
+          "lastUpdatedMillis": 1584400036193
         }
       },
       "location": {
@@ -2710,9 +2496,7 @@ de.metas.rest_api.ordercandidates.impl.OrderCandidatesRestControllerImplTest.tes
         "billToDefault": false,
         "changeInfo": {
           "createdMillis": 1584400036193,
-          "createdBy": 0,
-          "lastUpdatedMillis": 1584400036193,
-          "lastUpdatedBy": 0
+          "lastUpdatedMillis": 1584400036193
         }
       }
     },
@@ -2728,9 +2512,7 @@ de.metas.rest_api.ordercandidates.impl.OrderCandidatesRestControllerImplTest.tes
         "customer": true,
         "changeInfo": {
           "createdMillis": 1584400036193,
-          "createdBy": 0,
-          "lastUpdatedMillis": 1584400036193,
-          "lastUpdatedBy": 0
+          "lastUpdatedMillis": 1584400036193
         }
       },
       "location": {
@@ -2744,9 +2526,7 @@ de.metas.rest_api.ordercandidates.impl.OrderCandidatesRestControllerImplTest.tes
         "billToDefault": false,
         "changeInfo": {
           "createdMillis": 1584400036193,
-          "createdBy": 0,
-          "lastUpdatedMillis": 1584400036193,
-          "lastUpdatedBy": 0
+          "lastUpdatedMillis": 1584400036193
         }
       }
     },
@@ -2762,9 +2542,7 @@ de.metas.rest_api.ordercandidates.impl.OrderCandidatesRestControllerImplTest.tes
         "customer": true,
         "changeInfo": {
           "createdMillis": 1584400036193,
-          "createdBy": 0,
-          "lastUpdatedMillis": 1584400036193,
-          "lastUpdatedBy": 0
+          "lastUpdatedMillis": 1584400036193
         }
       },
       "location": {
@@ -2778,9 +2556,7 @@ de.metas.rest_api.ordercandidates.impl.OrderCandidatesRestControllerImplTest.tes
         "billToDefault": false,
         "changeInfo": {
           "createdMillis": 1584400036193,
-          "createdBy": 0,
-          "lastUpdatedMillis": 1584400036193,
-          "lastUpdatedBy": 0
+          "lastUpdatedMillis": 1584400036193
         }
       }
     },
@@ -2796,9 +2572,7 @@ de.metas.rest_api.ordercandidates.impl.OrderCandidatesRestControllerImplTest.tes
         "customer": true,
         "changeInfo": {
           "createdMillis": 1584400036193,
-          "createdBy": 0,
-          "lastUpdatedMillis": 1584400036193,
-          "lastUpdatedBy": 0
+          "lastUpdatedMillis": 1584400036193
         }
       },
       "location": {
@@ -2812,9 +2586,7 @@ de.metas.rest_api.ordercandidates.impl.OrderCandidatesRestControllerImplTest.tes
         "billToDefault": false,
         "changeInfo": {
           "createdMillis": 1584400036193,
-          "createdBy": 0,
-          "lastUpdatedMillis": 1584400036193,
-          "lastUpdatedBy": 0
+          "lastUpdatedMillis": 1584400036193
         }
       }
     },
